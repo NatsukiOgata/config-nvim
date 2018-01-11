@@ -55,6 +55,9 @@ set list
 set visualbell
 "set vb t_vb=
 
+" 全角記号の幅
+set ambiwidth=double
+
 " gtags
 " cscope_maps.vim like
 autocmd FileType h,c,cpp,php,js,css nnoremap <C-\>s :<C-u>Unite gtags/context -immediately<CR>
