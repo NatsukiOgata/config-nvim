@@ -125,6 +125,12 @@ nnoremap <silent> [vimfiler]d :<C-u>VimFilerBufferDir<CR>
 " VimFiler(カレントディレクトリ)
 nnoremap <silent> [vimfiler]c :<C-u>VimFilerCurrentDir<CR>
 
+" 辞書(Webを使用)
+nnoremap ,dw :<C-u>Ref webdict 
+
+" カラースキーマ(プレビュー)
+nnoremap <silent> ,cs :<C-u>Unite colorscheme -auto-preview<CR>
+
 " カレントディレクトリをエクスプローラーで開く
 nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
 function! OpenDirectoryExplorer(dir)
