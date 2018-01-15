@@ -145,3 +145,6 @@ nmap ,doo :diffoff<CR>:only<CR>
 
 " ヘッダファイルとソースファイルを切り替える
 command! A call altr#forward()
+
+" 編集中のファイルのディレクトリに移動する
+command! Cd :cd %:p:h
