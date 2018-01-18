@@ -1,3 +1,4 @@
+let $PATH="C:\\Program Files\\Git\\bin;".$PATH
 let g:python3_host_prog = 'C:\Users\z026369\neovim3\Scripts\python.exe'
 
 if &compatible
@@ -57,6 +58,9 @@ set visualbell
 
 " 全角記号の幅
 set ambiwidth=double
+
+" (C:\Program Files\Git\bin\)bash を起動する
+set shell=bash
 
 " gtags
 " cscope_maps.vim like
