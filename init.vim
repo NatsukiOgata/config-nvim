@@ -60,7 +60,7 @@ set visualbell
 set ambiwidth=double
 
 " (C:\Program Files\Git\bin\)bash を起動する
-set shell=bash
+"set shell=bash
 
 " gtags
 " cscope_maps.vim like
