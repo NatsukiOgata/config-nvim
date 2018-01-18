@@ -121,8 +121,8 @@ nnoremap <silent> ,fr :<C-u>Denite file_rec<CR>
 nnoremap <silent> ,fm :<C-u>Denite file_mru directory_mru<CR>
 nnoremap <silent> ,dr :<C-u>Denite directory_rec<CR>
 nnoremap <silent> ,dm :<C-u>Denite directory_mru file_mru<CR>
-nnoremap <silent> ,gr :<C-u>Denite -auto_preview grep<CR>
-nnoremap <silent> ,gc :<C-u>DeniteCursorWord grep<CR>
+nnoremap <silent> ,gr :<C-u>Denite grep -auto-preview<CR>
+nnoremap <silent> ,gc :<C-u>DeniteCursorWord grep -auto-preview<CR>
 
 " VimFiler(バッファディレクトリ)
 nnoremap <silent> [vimfiler]d :<C-u>VimFilerBufferDir<CR>
