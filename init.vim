@@ -62,13 +62,6 @@ set ambiwidth=double
 " (C:\Program Files\Git\bin\)bash を起動する
 "set shell=bash
 
-" gtags
-" cscope_maps.vim like
-autocmd FileType h,c,cpp,php,js,css nnoremap <C-\>s :<C-u>Unite gtags/context -immediately<CR>
-autocmd FileType h,c,cpp,php,js,css nnoremap <C-\>g :<C-u>Unite gtags/def -immediately<CR>
-autocmd FileType h,c,cpp,php,js,css nnoremap <C-\>c :<C-u>Unite gtags/ref<CR>
-autocmd FileType h,c,cpp,php,js,css nnoremap <C-\>e :<C-u>Unite gtags/grep<CR>
-
 autocmd FileType h,cpp setlocal fileencoding=utf-8
 autocmd FileType h,cpp setlocal nobomb
 autocmd FileType h,cpp setlocal noexpandtab
@@ -92,49 +85,6 @@ autocmd FileType php,javascript,css setlocal tabstop=8
 " <ESC>x2 で検索ハイライトを無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
-nnoremap [unite]    :Unite
-nnoremap [denite]   :Denite
-nnoremap [vimfiler] :VimFiler
-nnoremap [vimshell] :VimShell
-nnoremap [tsvn]     <Nop>
-
-nmap ,u [unite]
-nmap ,d [denite]
-nmap ,f [vimfiler]
-nmap ,s [vimshell]
-nmap ,t [tsvn]
-
-" バッファ一覧
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> [unite]f :<C-u>Unite file_rec<CR>
-" ディレクトリ一覧
-nnoremap <silent> [unite]s :<C-u>Unite directory<CR>
-" bookmark
-nnoremap <silent> [unite]j :<C-u>Unite bookmark<CR>
-" 最近使用したファイル一覧(ファイル・ディレクトリ)
-nnoremap <silent> [unite]m :<C-u>Unite file_mru directory_mru<CR>
-" 最近使用したファイル一覧(ディレクトリ・ファイル)
-nnoremap <silent> [unite]d :<C-u>Unite directory_mru file_mru<CR>
-
-nnoremap <silent> ,fr :<C-u>Denite file_rec<CR>
-nnoremap <silent> ,fm :<C-u>Denite file_mru directory_mru<CR>
-nnoremap <silent> ,dr :<C-u>Denite directory_rec<CR>
-nnoremap <silent> ,dm :<C-u>Denite directory_mru file_mru<CR>
-nnoremap <silent> ,gr :<C-u>Denite grep -auto-preview<CR>
-nnoremap <silent> ,gc :<C-u>DeniteCursorWord grep -auto-preview<CR>
-
-" VimFiler(バッファディレクトリ)
-nnoremap <silent> [vimfiler]d :<C-u>VimFilerBufferDir<CR>
-" VimFiler(カレントディレクトリ)
-nnoremap <silent> [vimfiler]c :<C-u>VimFilerCurrentDir<CR>
-
-" 辞書(Webを使用)
-nnoremap ,dw :<C-u>Ref webdict 
-
-" カラースキーマ(プレビュー)
-nnoremap <silent> ,cs :<C-u>Unite colorscheme -auto-preview<CR>
-
 " カレントディレクトリをエクスプローラーで開く
 nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
 function! OpenDirectoryExplorer(dir)
@@ -146,9 +96,6 @@ endfunction
 
 " 差分表示を解除してカレントのみにする
 nmap ,doo :diffoff<CR>:only<CR>
-
-" ヘッダファイルとソースファイルを切り替える
-command! A call altr#forward()
 
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
