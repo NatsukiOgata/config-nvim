@@ -2,5 +2,3 @@
 "call GuiWindowFullScreen(1)
 
 GuiFont! Ricty Diminished Discord:h16
-
-colorscheme wombat

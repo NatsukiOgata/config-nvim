@@ -99,3 +99,7 @@ nmap ,doo :diffoff<CR>:only<CR>
 
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
+
+" テーマ
+colorscheme landscape " VimFiler で見栄え良し
+colorscheme wombat
