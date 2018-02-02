@@ -59,6 +59,9 @@ set visualbell
 " 全角記号の幅
 set ambiwidth=double
 
+" 検索時などで除外する
+set wildignore+=.git/**,.svn/**,vendor*/**
+
 " (C:\Program Files\Git\bin\)bash を起動する
 "set shell=bash
 
