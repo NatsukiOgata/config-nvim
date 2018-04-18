@@ -68,8 +68,8 @@ set wildignore+=.git/**,.svn/**,vendor*/**
 autocmd FileType h,cpp setlocal fileencoding=utf-8
 autocmd FileType h,cpp setlocal nobomb
 autocmd FileType h,cpp setlocal noexpandtab
-autocmd FileType h,cpp setlocal shiftwidth=8
-autocmd FileType h,cpp setlocal tabstop=8
+autocmd FileType h,cpp setlocal shiftwidth=4
+autocmd FileType h,cpp setlocal tabstop=4
 
 "" PSR-2
 "autocmd FileType php setlocal expandtab
