@@ -116,6 +116,9 @@ command! ToSlash :s/\\/\//g | nohlsearch
 nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
+" JSON を整形
+command! AlignJSON :%!jq .
+
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
 
