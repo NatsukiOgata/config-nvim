@@ -104,6 +104,12 @@ endfunction
 nmap ,doo :DiffOffOnly<CR>
 command! DiffOffOnly :diffoff | only
 
+nmap ,todq :ToDoubleQuote<CR>
+command! ToDoubleQuote :s/'/\"/g | nohlsearch
+
+nmap ,tosq :ToSingleQuote<CR>
+command! ToSingleQuote :s/\"/'/g | nohlsearch
+
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
 
