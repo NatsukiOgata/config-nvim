@@ -101,7 +101,8 @@ function! OpenDirectoryExplorer(dir)
 endfunction
 
 " 差分表示を解除してカレントのみにする
-nmap ,doo :diffoff<CR>:only<CR>
+nmap ,doo :DiffOffOnly<CR>
+command! DiffOffOnly :diffoff | only
 
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
