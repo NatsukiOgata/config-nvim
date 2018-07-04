@@ -117,7 +117,15 @@ nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
 " JSON を整形
-command! AlignJSON :%!jq .
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+	if 0 == a:0
+		let l:arg = "."
+	else
+		let l:arg = a:1
+	endif
+	execute "%!jq " . l:arg
+endfunction
 
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
