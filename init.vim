@@ -2,7 +2,7 @@ let $PATH="C:\\Program Files\\Git\\bin;".$PATH
 let g:python3_host_prog = 'C:\Users\z026369\neovim3\Scripts\python.exe'
 
 if &compatible
-  set nocompatible
+	set nocompatible
 endif
 
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
