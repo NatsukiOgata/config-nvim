@@ -110,6 +110,12 @@ command! ToDoubleQuote :s/'/\"/g | nohlsearch
 nmap ,tosq :ToSingleQuote<CR>
 command! ToSingleQuote :s/\"/'/g | nohlsearch
 
+nmap ,tosl :ToSlash<CR>
+command! ToSlash :s/\\/\//g | nohlsearch
+
+nmap ,tobs :ToBackSlash<CR>
+command! ToBackSlash :s/\//\\/g | nohlsearch
+
 " 編集中のファイルのディレクトリに移動する
 command! Cd :cd %:p:h
 
