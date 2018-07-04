@@ -45,6 +45,15 @@ set ignorecase
 noremap! <C-L> <Right>
 noremap! <C-H> <Left>
 
+" 日付/時刻を展開(基本形)
+noremap! <expr> <C-d>d strftime('%Y%m%d')
+noremap! <expr> <C-d>t strftime('%H%M%S')
+" 日付/時刻を展開(セパレーター指定)
+noremap! <expr> <C-d>d- strftime('%Y-%m-%d')
+noremap! <expr> <C-d>d. strftime('%Y.%m.%d')
+noremap! <expr> <C-d>d/ strftime('%Y/%m/%d')
+noremap! <expr> <C-d>t: strftime('%H:%M:%S')
+
 " 8進数で扱うのは止める
 set nrformats-=octal
 
