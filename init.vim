@@ -100,6 +100,9 @@ autocmd FileType php,javascript,css setlocal tabstop=8
 " <ESC>x2 で検索ハイライトを無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
+" ESCでターミナルモードからノーマルモードへ
+tnoremap <ESC> <C-\><C-n>
+
 " 関連付け実行
 nmap ,exe :!start cmd.exe /C start <cfile><CR>
 
