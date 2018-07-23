@@ -71,6 +71,9 @@ set ambiwidth=double
 " 検索時などで除外する
 set wildignore+=.git/**,.svn/**,vendor*/**
 
+" 文字列置換をインタラクティブに表示
+set inccommand=split
+
 " (C:\Program Files\Git\bin\)bash を起動する
 "set shell=bash
 
