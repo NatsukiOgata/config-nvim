@@ -100,6 +100,8 @@ autocmd FileType php,javascript,css setlocal tabstop=8
 " <ESC>x2 で検索ハイライトを無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
+" Ctrl + q でターミナルを終了
+tnoremap <C-q> <C-\><C-n>:q<CR>
 " ESCでターミナルモードからノーマルモードへ
 tnoremap <ESC> <C-\><C-n>
 
