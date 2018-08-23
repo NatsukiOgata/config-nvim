@@ -102,6 +102,10 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " Ctrl + q でターミナルを終了
 tnoremap <C-q> <C-\><C-n>:q<CR>
+" Ctrl + v でペースト(クリップボード)
+tnoremap <C-v> <C-w>"*
+" Ctrl + p でペースト(ヤンク)
+tnoremap <C-p> <C-w>"0
 " ESCでターミナルモードからノーマルモードへ
 tnoremap <ESC> <C-\><C-n>
 
