@@ -26,8 +26,11 @@ if dein#check_install()
 	call dein#install()
 endif
 
+syntax enable
 filetype plugin indent on
- 
+
+"set encoding=utf-8
+
 " タブラインの設定
 set showtabline=1
  
@@ -65,20 +68,29 @@ set list
 set visualbell
 "set vb t_vb=
 
+" 検索結果をハイライトする
+set hlsearch
+
 " 全角記号の幅
 set ambiwidth=double
 
 " 検索時などで除外する
 set wildignore+=.git/**,.svn/**,vendor*/**
 
-" 文字列置換をインタラクティブに表示
-set inccommand=split
+" スペルチェックを有効化
+"set spell
+set spelllang=en,cjk
+
+if has('nvim')
+	" 文字列置換をインタラクティブに表示
+	set inccommand=split
+endif
 
 " (C:\Program Files\Git\bin\)bash を起動する
 "set shell=bash
 
-autocmd FileType h,cpp setlocal fileencoding=utf-8
-autocmd FileType h,cpp setlocal nobomb
+"autocmd FileType h,cpp setlocal fileencoding=utf-8
+"autocmd FileType h,cpp setlocal nobomb
 autocmd FileType h,cpp setlocal noexpandtab
 autocmd FileType h,cpp setlocal shiftwidth=4
 autocmd FileType h,cpp setlocal tabstop=4
@@ -101,7 +113,7 @@ autocmd FileType php,javascript,css setlocal tabstop=8
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " Ctrl + q でターミナルを終了
-tnoremap <C-q> <C-\><C-n>:q<CR>
+tnoremap <C-q> <C-\><C-n>:q!<CR>
 " ESCでターミナルモードからノーマルモードへ
 tnoremap <ESC> <C-\><C-n>
 
@@ -144,9 +156,7 @@ function! s:Jq(...)
 	execute "%!jq " . l:arg
 endfunction
 
-" 編集中のファイルのディレクトリに移動する
-command! Cd :cd %:p:h
-
-" テーマ
-colorscheme landscape " VimFiler で見栄え良し
-colorscheme wombat
+if !has('kaoriya')
+	" 編集中のファイルのディレクトリに移動する
+	command! CdCurrent :cd %:p:h
+endif
