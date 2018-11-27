@@ -108,11 +108,14 @@ autocmd FileType php,javascript,css setlocal noexpandtab
 autocmd FileType php,javascript,css setlocal shiftwidth=8
 autocmd FileType php,javascript,css setlocal tabstop=8
 
+" QML(Qt)
+autocmd BufNewFile,BufRead *.qml setfiletype javascript
+
 " <ESC>x2 で検索ハイライトを無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " Ctrl + q でターミナルを終了
-tnoremap <C-q> <C-\><C-n>:q!<CR>
+tnoremap <C-q> <C-\><C-n>:bw!<CR>
 " ESCでターミナルモードからノーマルモードへ
 tnoremap <ESC> <C-\><C-n>
 
