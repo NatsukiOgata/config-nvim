@@ -109,6 +109,9 @@ autocmd FileType php,javascript,css setlocal noexpandtab
 autocmd FileType php,javascript,css setlocal shiftwidth=8
 autocmd FileType php,javascript,css setlocal tabstop=8
 
+" TOML
+autocmd BufNewFile,BufRead *.toml setfiletype vim
+
 " QML(Qt)
 autocmd BufNewFile,BufRead *.qml setfiletype javascript
 
