@@ -85,6 +85,18 @@ if has('nvim')
 	set inccommand=split
 endif
 
+" 特に入力補完が用意されていない場合の各種キーワードの補完
+autocmd FileType *
+\   if &l:omnifunc == ''
+\ |   setlocal omnifunc=syntaxcomplete#Complete
+\ | endif
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
+
 " (C:\Program Files\Git\bin\)bash を起動する
 "set shell=bash
 
@@ -93,6 +105,7 @@ endif
 autocmd FileType h,cpp setlocal noexpandtab
 autocmd FileType h,cpp setlocal shiftwidth=4
 autocmd FileType h,cpp setlocal tabstop=4
+autocmd FileType h,cpp setlocal omnifunc=lsp#complete
 
 "" PSR-2
 "autocmd FileType php setlocal expandtab
@@ -121,6 +134,9 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 tnoremap <C-q> <C-\><C-n>:bw!<CR>
 " ESCでターミナルモードからノーマルモードへ
 tnoremap <ESC> <C-\><C-n>
+
+" Ctrl + space でオムニ補完
+imap <C-Space> <C-x><C-o>
 
 " 関連付け実行
 nmap ,exe :!start cmd.exe /C start <cfile><CR>
