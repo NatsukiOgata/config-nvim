@@ -105,7 +105,6 @@ autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
 autocmd FileType h,cpp setlocal noexpandtab
 autocmd FileType h,cpp setlocal shiftwidth=4
 autocmd FileType h,cpp setlocal tabstop=4
-autocmd FileType h,cpp setlocal omnifunc=lsp#complete
 
 "" PSR-2
 "autocmd FileType php setlocal expandtab
