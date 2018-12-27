@@ -77,8 +77,8 @@ set ambiwidth=double
 set wildignore+=.git/**,.svn/**,vendor*/**
 
 " スペルチェックを有効化
-"set spell
 set spelllang=en,cjk
+"set spell
 
 if has('nvim')
 	" 文字列置換をインタラクティブに表示
