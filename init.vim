@@ -1,5 +1,5 @@
 let $PATH="C:\\Program Files\\Git\\bin;".$PATH
-let g:python3_host_prog = 'C:\Users\z026369\neovim3\Scripts\python.exe'
+let g:python3_host_prog = 'C:\msys64\usr\bin\python3.exe'
 
 if &compatible
 	set nocompatible
@@ -181,3 +181,7 @@ if !has('kaoriya')
 	" 編集中のファイルのディレクトリに移動する
 	command! CdCurrent :cd %:p:h
 endif
+
+" テーマ
+colorscheme landscape " VimFiler で見栄え良し
+colorscheme wombat

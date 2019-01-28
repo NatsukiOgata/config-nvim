@@ -1,4 +1,5 @@
-let $PATH="C:\\Users\\z026369\\vim35\\Scripts;".$PATH
+let $PATH="C:\\msys64\\usr\\bin;".$PATH
+let g:python3_host_prog = 'C:\msys64\usr\bin\python3.exe'
 
 if &compatible
 	set nocompatible
