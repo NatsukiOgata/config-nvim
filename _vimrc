@@ -103,7 +103,7 @@ autocmd InsertLeave  * if pumvisible() == 0|pclose|endif
 
 "autocmd FileType h,cpp setlocal fileencoding=utf-8
 "autocmd FileType h,cpp setlocal nobomb
-autocmd FileType h,cpp setlocal noexpandtab
+autocmd FileType h,cpp setlocal expandtab
 autocmd FileType h,cpp setlocal shiftwidth=4
 autocmd FileType h,cpp setlocal tabstop=4
 
