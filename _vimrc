@@ -35,7 +35,12 @@ set encoding=utf-8
 set showtabline=1
  
 " バックアップファイルの作成場所
-set backupdir=$tmp
+if has('win32') || has ('win64')
+	set backupdir=$tmp
+endif
+if has('unix')
+	set backupdir=/tmp
+endif
 " スワップファイルの作成場所はバックアップと同じ
 let &directory = &backupdir
  
@@ -138,17 +143,19 @@ tnoremap <ESC> <C-\><C-n>
 " Ctrl + space でオムニ補完
 imap <C-Space> <C-x><C-o>
 
-" 関連付け実行
-nmap ,exe :!start cmd.exe /C start <cfile><CR>
+if has('win32') || has ('win64')
+	" 関連付け実行
+	nmap ,exe :!start cmd.exe /C start <cfile><CR>
 
-" カレントディレクトリをエクスプローラーで開く
-nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
-function! OpenDirectoryExplorer(dir)
-	let save_ss = &shellslash
-	set noshellslash
-	execute('!start explorer.exe "' . a:dir . '"')
-	let &shellslash = save_ss
-endfunction
+	" カレントディレクトリをエクスプローラーで開く
+	nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
+	function! OpenDirectoryExplorer(dir)
+		let save_ss = &shellslash
+		set noshellslash
+		execute('!start explorer.exe "' . a:dir . '"')
+		let &shellslash = save_ss
+	endfunction
+endif
 
 " 差分表示を解除してカレントのみにする
 nmap ,doo :DiffOffOnly<CR>
