@@ -35,10 +35,9 @@ filetype plugin indent on
 set showtabline=1
  
 " バックアップファイルの作成場所
-if has('win32') || has ('win64')
-	set backupdir=$tmp
-endif
-if has('unix')
+if $TMP != ''
+	set backupdir=$TMP
+elseif has('unix')
 	set backupdir=/tmp
 endif
 " スワップファイルの作成場所はバックアップと同じ
