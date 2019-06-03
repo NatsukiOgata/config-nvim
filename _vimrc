@@ -131,6 +131,14 @@ autocmd BufNewFile,BufRead *.toml setfiletype vim
 " QML(Qt)
 autocmd BufNewFile,BufRead *.qml setfiletype javascript
 
+if has('nvim')
+	" Neovim 用
+	autocmd WinEnter * if &buftype ==# 'terminal' | startinsert | endif
+else
+	" Vim 用
+	autocmd WinEnter * if &buftype ==# 'terminal' | normal i | endif
+endif
+
 " <ESC>x2 で検索ハイライトを無効化
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
