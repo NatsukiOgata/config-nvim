@@ -1,5 +1,4 @@
-let $PATH="C:\\msys64\\usr\\bin;".$PATH
-let g:python3_host_prog = 'C:\msys64\usr\bin\python3.exe'
+let g:python3_host_prog = 'python3'
 
 if &compatible
 	set nocompatible
