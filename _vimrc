@@ -85,6 +85,9 @@ set wildignore+=.git/**,.svn/**,vendor*/**
 set spelllang=en,cjk
 "set spell
 
+" 行番号は不要
+set nonumber
+
 if has('nvim')
 	" 文字列置換をインタラクティブに表示
 	set inccommand=split
