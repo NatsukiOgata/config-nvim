@@ -164,6 +164,14 @@ if has('win32') || has ('win64')
 	endfunction
 endif
 
+" Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
+if system('uname -a | grep Microsoft') != ''
+	augroup myYank
+		autocmd!
+		autocmd TextYankPost * :call system('clip.exe', @")
+	augroup END
+endif
+
 " 差分表示を解除してカレントのみにする
 nmap ,doo :DiffOffOnly<CR>
 command! DiffOffOnly :diffoff | only
