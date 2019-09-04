@@ -1,5 +1,3 @@
-let g:python3_host_prog = 'python3'
-
 if &compatible
 	set nocompatible
 endif
