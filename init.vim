@@ -182,6 +182,10 @@ command! ToSlash :s/\\/\//g | nohlsearch
 nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
+" Shell(zsh)をインサートモードで起動
+nmap ,sh :Shell<CR>i
+command! Shell :split | term zsh
+
 " JSON を整形
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
@@ -200,4 +204,4 @@ endif
 
 " テーマ
 colorscheme landscape " VimFiler で見栄え良し
-colorscheme wombat
+"colorscheme wombat
