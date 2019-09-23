@@ -196,6 +196,21 @@ command! Shell :botright split | term zsh
 command! Make :cd %:p:h | botright split | term make
 command! MakeAll :cd %:p:h | botright split | term make all
 
+" online-judge-tools
+command! -nargs=+ OnlineJudge call s:OnlineJudge(<f-args>)
+function! s:OnlineJudge(...)
+	let cmd = [":cd %:p:h | vsplit | terminal oj "]
+	call extend(cmd,a:000)
+	execute join(cmd)
+endfunction
+
+command! -nargs=* OnlineJudgeTest call s:OnlineJudgeTest(<f-args>)
+function! s:OnlineJudgeTest(...)
+	let cmd = [":cd %:p:h | vsplit | terminal g++ %:t && oj t "]
+	call extend(cmd,a:000)
+	execute join(cmd)
+endfunction
+
 " JSON を整形
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
