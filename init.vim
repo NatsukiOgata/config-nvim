@@ -185,8 +185,12 @@ nmap ,sh :Shell<CR>i
 command! Shell :botright split | term zsh
 
 " 非同期make
-command! Make :cd %:p:h | botright split | term make
-command! MakeAll :cd %:p:h | botright split | term make all
+command! -nargs=* Make call s:Make(<f-args>)
+function! s:Make(...)
+	let cmd = [":cd %:p:h | botright split | term make "]
+	call extend(cmd,a:000)
+	execute join(cmd)
+endfunction
 
 " JSON を整形
 command! -nargs=? Jq call s:Jq(<f-args>)
