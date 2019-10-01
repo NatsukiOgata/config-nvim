@@ -182,7 +182,7 @@ command! ToBackSlash :s/\//\\/g | nohlsearch
 
 " Shell(zsh)をインサートモードで起動
 nmap ,sh :Shell<CR>i
-command! Shell :botright split | term zsh
+command! Shell :cd %:p:h | botright split | term zsh
 
 " 非同期make
 command! -nargs=* Make call s:Make(<f-args>)
