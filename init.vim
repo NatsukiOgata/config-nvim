@@ -195,14 +195,13 @@ command! Shell :cd %:p:h | botright split | term zsh
 " 非同期make
 command! -nargs=* Make call s:Make(<f-args>)
 function! s:Make(...)
+	let l:cmd = [":cd %:p:h | botright split | term "]
 	if &filetype=='cpp'
-		let l:cmd = [":cd %:p:h | botright split | term make "]
+		call add(l:cmd, "make ")
 	elseif &filetype=='cs'
-		let l:cmd = [":cd %:p:h | botright split | term mcs -out:a.out %:t"]
+		call add(l:cmd, "mcs -out:a.out %:t ")
 	elseif &filetype=='rust'
-		let l:cmd = [":cd %:p:h | botright split | term rustc -o a.out %:t"]
-	else
-		let l:cmd = []
+		call add(l:cmd, "rustc -o a.out %:t ")
 	endif
 	call extend(l:cmd,a:000)
 	execute join(l:cmd)
