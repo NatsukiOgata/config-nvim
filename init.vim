@@ -191,6 +191,8 @@ function! s:Make(...)
 		let l:cmd = [":cd %:p:h | botright split | term make "]
 	elseif &filetype=='cs'
 		let l:cmd = [":cd %:p:h | botright split | term mcs -out:a.out %:t"]
+	elseif &filetype=='rust'
+		let l:cmd = [":cd %:p:h | botright split | term rustc -o a.out %:t"]
 	else
 		let l:cmd = []
 	endif
