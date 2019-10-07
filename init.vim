@@ -187,9 +187,15 @@ command! Shell :cd %:p:h | botright split | term zsh
 " 非同期make
 command! -nargs=* Make call s:Make(<f-args>)
 function! s:Make(...)
-	let cmd = [":cd %:p:h | botright split | term make "]
-	call extend(cmd,a:000)
-	execute join(cmd)
+	if &filetype=='cpp'
+		let l:cmd = [":cd %:p:h | botright split | term make "]
+	elseif &filetype=='cs'
+		let l:cmd = [":cd %:p:h | botright split | term mcs -out:a.out %:t"]
+	else
+		let l:cmd = []
+	endif
+	call extend(l:cmd,a:000)
+	execute join(l:cmd)
 endfunction
 
 " JSON を整形
