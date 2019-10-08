@@ -183,6 +183,13 @@ command! ToSlash :s/\\/\//g | nohlsearch
 nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
+" ƒƒAƒh‰ÁH
+nmap ,ms :SplitMailAddress<CR>
+command! SplitMailAddress s/; */\r/g | nohlsearch
+
+vmap ,mj :JoinMailAddress<CR>
+command! -range JoinMailAddress <line1>,<line2>s/\n/; /g | nohlsearch
+
 " JSON ‚ğ®Œ`
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
