@@ -190,10 +190,22 @@ function! s:Make(...)
 	let l:cmd = [":cd %:p:h | botright split | term "]
 	if &filetype=='cpp'
 		call add(l:cmd, "make ")
-	elseif &filetype=='cs'
-		call add(l:cmd, "mcs -out:a.out %:t ")
+	elseif &filetype=='rust'
+		call add(l:cmd, "cargo ")
+	endif
+	call extend(l:cmd,a:000)
+	execute join(l:cmd)
+endfunction
+
+command! -nargs=* MakeSingle call s:MakeSingle(<f-args>)
+function! s:MakeSingle(...)
+	let l:cmd = [":cd %:p:h | botright split | term "]
+	if &filetype=='cpp'
+		call add(l:cmd, "g++ %:t ")
 	elseif &filetype=='rust'
 		call add(l:cmd, "rustc -o a.out %:t ")
+	elseif &filetype=='cs'
+		call add(l:cmd, "mcs -out:a.out %:t ")
 	endif
 	call extend(l:cmd,a:000)
 	execute join(l:cmd)
