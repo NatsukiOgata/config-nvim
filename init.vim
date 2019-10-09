@@ -193,8 +193,8 @@ nmap ,sh :Shell<CR>i
 command! Shell :cd %:p:h | vsplit | term zsh
 
 " 非同期make
-command! -nargs=* Make call s:Make(<f-args>)
-function! s:Make(...)
+command! -nargs=* MakeAs call s:MakeAs(<f-args>)
+function! s:MakeAs(...)
 	let l:cmd = [":cd %:p:h | vsplit | term "]
 	if &filetype=='cpp'
 		call add(l:cmd, "make ")
@@ -205,8 +205,8 @@ function! s:Make(...)
 	execute join(l:cmd)
 endfunction
 
-command! -nargs=* MakeSingle call s:MakeSingle(<f-args>)
-function! s:MakeSingle(...)
+command! -nargs=* MakeAsSingle call s:MakeAsSingle(<f-args>)
+function! s:MakeAsSingle(...)
 	let l:cmd = [":cd %:p:h | vsplit | term "]
 	if &filetype=='cpp'
 		call add(l:cmd, "g++ %:t ")
