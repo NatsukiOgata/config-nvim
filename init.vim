@@ -182,12 +182,12 @@ command! ToBackSlash :s/\//\\/g | nohlsearch
 
 " Shell(zsh)をインサートモードで起動
 nmap ,sh :Shell<CR>i
-command! Shell :cd %:p:h | botright split | term zsh
+command! Shell :cd %:p:h | vsplit | term zsh
 
 " 非同期make
 command! -nargs=* Make call s:Make(<f-args>)
 function! s:Make(...)
-	let l:cmd = [":cd %:p:h | botright split | term "]
+	let l:cmd = [":cd %:p:h | vsplit | term "]
 	if &filetype=='cpp'
 		call add(l:cmd, "make ")
 	elseif &filetype=='rust'
@@ -199,7 +199,7 @@ endfunction
 
 command! -nargs=* MakeSingle call s:MakeSingle(<f-args>)
 function! s:MakeSingle(...)
-	let l:cmd = [":cd %:p:h | botright split | term "]
+	let l:cmd = [":cd %:p:h | vsplit | term "]
 	if &filetype=='cpp'
 		call add(l:cmd, "g++ %:t ")
 	elseif &filetype=='rust'
