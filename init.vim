@@ -190,7 +190,7 @@ command! ToBackSlash :s/\//\\/g | nohlsearch
 
 " Shell(zsh)をインサートモードで起動
 nmap ,sh :Shell<CR>i
-command! Shell :cd %:p:h | vsplit | term zsh
+command! Shell :cd %:p:h | -tabnew | term zsh
 
 " 非同期make
 command! -nargs=* MakeAs call s:MakeAs(<f-args>)
