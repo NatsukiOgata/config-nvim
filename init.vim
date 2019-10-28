@@ -190,7 +190,7 @@ command! ToBackSlash :s/\//\\/g | nohlsearch
 
 " Shell(zsh)をインサートモードで起動
 nmap ,sh :Shell<CR>i
-command! Shell :cd %:p:h | -tabnew | term zsh
+command! Shell :-tabnew | term zsh
 
 " 非同期make
 command! -nargs=* MakeAs call s:MakeAs(<f-args>)
@@ -245,9 +245,10 @@ function! s:Jq(...)
 	execute "%!jq " . l:arg
 endfunction
 
+nmap ,cd :CdCurrent<CR>
 if !has('kaoriya')
 	" 編集中のファイルのディレクトリに移動する
-	command! CdCurrent :cd %:p:h
+	command! -nargs=0 CdCurrent cd %:p:h
 endif
 
 " テーマ
