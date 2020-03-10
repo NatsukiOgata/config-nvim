@@ -210,7 +210,7 @@ command! -nargs=* MakeAsSingle call s:MakeAsSingle(<f-args>)
 function! s:MakeAsSingle(...)
 	let l:cmd = [":cd %:p:h | vsplit | term "]
 	if &filetype=='cpp'
-		call add(l:cmd, "g++ %:t ")
+		call add(l:cmd, "g++ %:t -std=gnu++14 ")
 	elseif &filetype=='rust'
 		call add(l:cmd, "rustc -o a.out %:t ")
 	elseif &filetype=='cs'
