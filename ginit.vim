@@ -2,7 +2,7 @@
 "call GuiWindowFullScreen(1)
 
 " タブをCUIで表現
-GuiTabline! 0
+GuiTabline 0
 
 GuiFont! RictyDiminishedDiscord:h16
 "GuiFont! RictyDiminishedDiscordWithFiraC:h16
