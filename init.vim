@@ -1,3 +1,7 @@
+let $PATH="D:\Python\Python38;".$PATH
+let g:python3_host_prog = 'D:\Python\Python38\python.exe'
+"set pythonthreedll=D:\Python\Python38\python38.dll
+
 if &compatible
 	set nocompatible
 endif
