@@ -1,5 +1,6 @@
-let $PATH="C:\\msys64\\usr\\bin;".$PATH
-let g:python3_host_prog = 'C:\msys64\usr\bin\python3.exe'
+let $PATH="D:\Python\Python38;".$PATH
+let g:python3_host_prog = 'D:\Python\Python38\python.exe'
+set pythonthreedll=D:\Python\Python38\python38.dll
 
 if &compatible
 	set nocompatible
