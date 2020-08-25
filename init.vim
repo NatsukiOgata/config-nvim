@@ -258,4 +258,4 @@ endif
 
 " テーマ
 colorscheme landscape " VimFiler で見栄え良し
-"colorscheme wombat
+colorscheme wombat
