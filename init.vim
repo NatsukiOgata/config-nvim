@@ -193,6 +193,13 @@ command! ToSlash :s/\\/\//g | nohlsearch
 nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
+" メアド加工
+nmap ,ms :SplitMailAddress<CR>
+command! SplitMailAddress s/; */\r/g | nohlsearch
+
+vmap ,mj :JoinMailAddress<CR>
+command! -range JoinMailAddress <line1>,<line2>s/\n/; /g | nohlsearch
+
 " Shell(zsh)をインサートモードで起動
 nmap ,sh :Shell<CR>i
 command! Shell :-tabnew | term zsh
