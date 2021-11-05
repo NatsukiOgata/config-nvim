@@ -234,6 +234,17 @@ function! s:Jq(...)
 	execute "%!jq " . l:arg
 endfunction
 
+" XML を整形
+command! -nargs=? Xl call s:XmlLint(<f-args>)
+function! s:XmlLint(...)
+	if 0 == a:0
+		let l:arg = "--format --noblanks -"
+	else
+		let l:arg = a:1
+	endif
+	execute "%!xmllint " . l:arg
+endfunction
+
 nmap ,cd :CdCurrent<CR>
 if !has('kaoriya')
 	" 編集中のファイルのディレクトリに移動する
