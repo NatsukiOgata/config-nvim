@@ -76,9 +76,6 @@ set visualbell
 " 検索結果をハイライトする
 set hlsearch
 
-" 全角記号の幅
-set ambiwidth=double
-
 " 検索時などで除外する
 set wildignore+=.git/**,.svn/**,vendor*/**
 
