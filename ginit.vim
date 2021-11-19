@@ -4,5 +4,4 @@
 " タブをCUIで表現
 GuiTabline 0
 
-GuiFont! RictyDiminishedDiscord:h16
-"GuiFont! RictyDiminishedDiscordWithFiraC:h16
+GuiFont! RictyDiminishedDiscord NF:h16
