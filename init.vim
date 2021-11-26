@@ -133,8 +133,8 @@ autocmd BufNewFile,BufRead *.toml setfiletype vim
 autocmd BufNewFile,BufRead *.qml setfiletype javascript
 
 autocmd ColorScheme * highlight Emphasis ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
-" (文字とくっついている)!を強調
-autocmd Syntax * syntax match Emphasis /!\w/he=e-1
+" 否定を表す"!"を強調
+autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 
 " ターミナルで自動的にインサートモードに
 "if has('nvim')
