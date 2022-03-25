@@ -194,6 +194,9 @@ command! ToSlash :s/\\/\//g | nohlsearch
 nmap ,tobs :ToBackSlash<CR>
 command! ToBackSlash :s/\//\\/g | nohlsearch
 
+command! ToBin :%!xxd
+command! ToTxt :%!xxd -r
+
 " メアド加工
 nmap ,ms :SplitMailAddress<CR>
 command! SplitMailAddress s/; */\r/g | nohlsearch
