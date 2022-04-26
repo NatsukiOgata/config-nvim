@@ -168,14 +168,14 @@ if has('win32') || has ('win64')
 		execute('!start explorer.exe "' . a:dir . '"')
 		let &shellslash = save_ss
 	endfunction
-endif
-
-" Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
-if system('uname -a | grep Microsoft') != ''
-	augroup myYank
-		autocmd!
-		autocmd TextYankPost * :call system('clip.exe', @")
-	augroup END
+else
+	" Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
+	if system('uname -a | grep -i microsoft') != ''
+		augroup myYank
+			autocmd!
+			autocmd TextYankPost * :call system('clip.exe', @")
+		augroup END
+	endif
 endif
 
 " 差分表示を解除してカレントのみにする
