@@ -75,6 +75,14 @@ autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 -- <ESC>x2 で検索ハイライトを無効化
 vim.cmd('nnoremap <ESC><ESC> :nohlsearch<CR>')
 
+-- ターミナル設定
+vim.cmd([[
+" Ctrl + q でターミナルを終了
+tnoremap <C-q> <C-\><C-n>:bw!<CR>
+" ESCでターミナルモードからノーマルモードへ
+tnoremap <ESC> <C-\><C-n>
+]])
+
 vim.cmd([[
 if has('win32') || has ('win64')
 	" 関連付け実行
