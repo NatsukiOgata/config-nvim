@@ -79,13 +79,10 @@ autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 -- <ESC>x2 で検索ハイライトを無効化
 keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
 
--- ターミナル設定
-vim.cmd([[
-" Ctrl + q でターミナルを終了
-tnoremap <C-q> <C-\><C-n>:bw!<CR>
-" ESCでターミナルモードからノーマルモードへ
-tnoremap <ESC> <C-\><C-n>
-]])
+-- Ctrl + q でターミナルを終了
+keymap('t', '<C-q>', '<C-\\><C-n>:bw!<CR>', option_noremap)
+-- ESCでターミナルモードからノーマルモードへ
+keymap('t', '<ESC>', '<C-\\><C-n>', option_noremap)
 
 vim.cmd([[
 if has('win32') || has ('win64')
