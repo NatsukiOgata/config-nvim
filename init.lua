@@ -117,6 +117,30 @@ nmap ,doo :DiffOffOnly<CR>
 command! DiffOffOnly :diffoff | only
 ]])
 
+vim.cmd([[
+nmap ,todq :ToDoubleQuote<CR>
+command! ToDoubleQuote :s/'/\"/g | nohlsearch
+
+nmap ,tosq :ToSingleQuote<CR>
+command! ToSingleQuote :s/\"/'/g | nohlsearch
+
+nmap ,tosl :ToSlash<CR>
+command! ToSlash :s/\\/\//g | nohlsearch
+
+nmap ,tobs :ToBackSlash<CR>
+command! ToBackSlash :s/\//\\/g | nohlsearch
+
+command! ToBin :%!xxd
+command! ToTxt :%!xxd -r
+
+" メアド加工
+nmap ,ms :SplitMailAddress<CR>
+command! SplitMailAddress s/; */\r/g | nohlsearch
+
+vmap ,mj :JoinMailAddress<CR>
+command! -range JoinMailAddress <line1>,<line2>s/\n/; /g | nohlsearch
+]])
+
 -- Shell(PowerShell)をインサートモードで起動
 vim.cmd([[
 nmap ,sh :Shell<CR>i
