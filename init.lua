@@ -77,7 +77,7 @@ autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 ]])
 
 -- <ESC>x2 で検索ハイライトを無効化
-keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<Return>', option_noremap)
+keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
 
 -- ターミナル設定
 vim.cmd([[
