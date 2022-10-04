@@ -54,21 +54,21 @@ local option_noremap = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- インサートモードでカーソル移動
-keymap("i", "<C-l>", "<Right>", option_noremap)
-keymap("i", "<C-h>", "<Left>" , option_noremap)
+keymap('i', '<C-l>', '<Right>', option_noremap)
+keymap('i', '<C-h>', '<Left>' , option_noremap)
 
 -- 日付/時刻を展開(基本形)
-keymap("i", "<C-d>d", vim.api.nvim_eval("strftime('%Y%m%d')"), option_noremap)
-keymap("i", "<C-d>t", vim.api.nvim_eval("strftime('%H%M%S')"), option_noremap)
+keymap('i', '<C-d>d', vim.fn.strftime('%Y%m%d'), option_noremap)
+keymap('i', '<C-d>t', vim.fn.strftime('%H%M%S'), option_noremap)
 
 -- 日付/時刻を展開(セパレーター指定)
-keymap("i", "<C-d>d-", vim.api.nvim_eval("strftime('%Y-%m-%d')"), option_noremap)
-keymap("i", "<C-d>d.", vim.api.nvim_eval("strftime('%Y.%m.%d')"), option_noremap)
-keymap("i", "<C-d>d/", vim.api.nvim_eval("strftime('%Y/%m/%d')"), option_noremap)
-keymap("i", "<C-d>t:", vim.api.nvim_eval("strftime('%H:%M:%S')"), option_noremap)
+keymap('i', '<C-d>d-', vim.fn.strftime('%Y-%m-%d'), option_noremap)
+keymap('i', '<C-d>d.', vim.fn.strftime('%Y.%m.%d'), option_noremap)
+keymap('i', '<C-d>d/', vim.fn.strftime('%Y/%m/%d'), option_noremap)
+keymap('i', '<C-d>t:', vim.fn.strftime('%H:%M:%S'), option_noremap)
 
 -- 日付/時刻を展開(会話)
-keymap("i", "<C-d>dt", vim.api.nvim_eval("strftime('%b/%d %H:%M')"), option_noremap)
+keymap('i', '<C-d>dt', vim.fn.strftime('%b/%d %H:%M'), option_noremap)
 
 -- 否定を表す"!"を強調
 vim.cmd([[
@@ -77,7 +77,7 @@ autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 ]])
 
 -- <ESC>x2 で検索ハイライトを無効化
-keymap("n", "<ESC><ESC>", ":<C-u>nohlsearch<Return>", option_noremap)
+keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<Return>', option_noremap)
 
 -- ターミナル設定
 vim.cmd([[
