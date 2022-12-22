@@ -36,6 +36,8 @@ syntax enable
 filetype plugin indent on
 ]])
 
+vim.g.python3_host_prog = vim.env.HOME .. '\\.vim\\nvim\\Scripts\\python.exe'
+
 vim.o.fileencodings = 'utf-8,cp932,utf-16le,euc-jp'
 
 -- タブラインの設定
