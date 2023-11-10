@@ -99,6 +99,13 @@ if has('win32') || has ('win64')
 		execute('!start explorer.exe "' . a:dir . '"')
 		let &shellslash = save_ss
 	endfunction
+
+	" 全角解除
+	autocmd InsertLeave * :call DisableIME()
+	autocmd CmdlineLeave * :call DisableIME()
+	function! DisableIME() abort
+		call system('zenhan.exe 0')
+	endfunction
 else
 	" Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
 	if system('uname -a | grep -i microsoft') != ''
