@@ -142,8 +142,14 @@ command! -range JoinMailAddress <line1>,<line2>s/\n/; /g | nohlsearch
 
 -- Shell(PowerShell)をインサートモードで起動
 vim.cmd([[
-nmap ,sh :Shell<CR>i
-command! Shell :-tabnew | term powershell
+nmap ,sh :PowerShell<CR>i
+command! PowerShell :-tabnew | term powershell
+]])
+
+-- Shell(cmd)をインサートモードで起動
+vim.cmd([[
+nmap ,cmd :Shell<CR>i
+command! Shell :-tabnew | term
 ]])
 
 -- JSON を整形
