@@ -59,18 +59,19 @@ local keymap = vim.api.nvim_set_keymap
 keymap('i', '<C-l>', '<Right>', option_noremap)
 keymap('i', '<C-h>', '<Left>' , option_noremap)
 
--- 日付/時刻を展開(基本形)
-keymap('i', '<C-d>d', vim.fn.strftime('%Y%m%d'), option_noremap)
-keymap('i', '<C-d>t', vim.fn.strftime('%H%M%S'), option_noremap)
-
--- 日付/時刻を展開(セパレーター指定)
-keymap('i', '<C-d>d-', vim.fn.strftime('%Y-%m-%d'), option_noremap)
-keymap('i', '<C-d>d.', vim.fn.strftime('%Y.%m.%d'), option_noremap)
-keymap('i', '<C-d>d/', vim.fn.strftime('%Y/%m/%d'), option_noremap)
-keymap('i', '<C-d>t:', vim.fn.strftime('%H:%M:%S'), option_noremap)
-
--- 日付/時刻を展開(会話)
-keymap('i', '<C-d>dt', vim.fn.strftime('%b/%d %H:%M'), option_noremap)
+-- 日付/時刻を展開
+vim.cmd([[
+" 基本形
+noremap! <expr> <C-d>d strftime('%Y%m%d')
+noremap! <expr> <C-d>t strftime('%H%M%S')
+" セパレーター指定
+noremap! <expr> <C-d>d- strftime('%Y-%m-%d')
+noremap! <expr> <C-d>d. strftime('%Y.%m.%d')
+noremap! <expr> <C-d>d/ strftime('%Y/%m/%d')
+noremap! <expr> <C-d>t: strftime('%H:%M:%S')
+" 会話
+noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
+]])
 
 -- 否定を表す"!"を強調
 vim.cmd([[
