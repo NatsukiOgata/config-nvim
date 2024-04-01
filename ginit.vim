@@ -4,4 +4,4 @@
 " タブをCUIで表現
 GuiTabline 0
 
-GuiFont! RictyDiminishedDiscord NF:h16
+GuiFont! PlemolJP Console NF:h16
