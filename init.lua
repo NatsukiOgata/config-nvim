@@ -103,7 +103,6 @@ if has('win32') || has ('win64')
 
 	" 全角解除
 	autocmd InsertLeave * :call DisableIME()
-	autocmd CmdlineLeave * :call DisableIME()
 	function! DisableIME() abort
 		call system('zenhan.exe 0')
 	endfunction
