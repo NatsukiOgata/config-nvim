@@ -190,5 +190,4 @@ vim.cmd('nmap ,cd :CdCurrent<CR>')
 vim.cmd('command! -nargs=0 CdCurrent cd %:p:h')
 
 -- テーマ
-vim.cmd('colorscheme landscape') -- VimFiler で見栄え良し
 vim.cmd('colorscheme wombat')
