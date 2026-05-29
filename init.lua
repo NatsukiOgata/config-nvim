@@ -45,6 +45,8 @@ vim.o.showtabline = 1
 
 -- 検索文字列が小文字の場合は大文字小文字を区別なく検索する
 vim.o.ignorecase = true
+-- 大文字が含まれる場合にのみ厳密に区別
+vim.o.smartcase = true
 
 -- Tab の表示設定
 vim.wo.list = true
