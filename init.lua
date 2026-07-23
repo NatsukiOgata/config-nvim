@@ -57,6 +57,13 @@ local option_noremap = { noremap = true, silent = true }
 -- local keymap = vim.keymap
 local keymap = vim.api.nvim_set_keymap
 
+-- diffオプションの設定
+vim.opt.diffopt:append({
+  "iwhite",             -- 空白文字（スペースやタブ）の違いを無視
+  "algorithm:patience", -- より直感的に差分を抽出するアルゴリズムを使用
+  "linematch:60",       -- 改行・空白位置がずれても類似行を賢くマッチング（Neovim v0.9+）
+})
+
 -- インサートモードでカーソル移動
 keymap('i', '<C-l>', '<Right>', option_noremap)
 keymap('i', '<C-h>', '<Left>' , option_noremap)
