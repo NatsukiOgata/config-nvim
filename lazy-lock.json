@@ -27,8 +27,6 @@
   "nerdfont.vim": { "branch": "master", "commit": "3a28b3f061a8b6de751175cc3f91f072d4bfc811" },
   "nvim-web-devicons": { "branch": "master", "commit": "5f032a85be210cd1c6ac98861eb3b187ff3bd5eb" },
   "qfixhowm": { "branch": "master", "commit": "14d0a3414f69b3a06ba3616bdd53ca4dbcfc6106" },
-  "unite-colorscheme": { "branch": "master", "commit": "505157450fe1a967c6c044d3bfe18d896e3d5d08" },
-  "unite.vim": { "branch": "master", "commit": "0ccb3f7988d61a9a86525374be97360bd20db6bc" },
   "vim-altr": { "branch": "master", "commit": "fba055cf3b83a1ada5b05d694fbefd024aa93289" },
   "vim-clang-format": { "branch": "master", "commit": "6b791825ff478061ad1c57b21bb1ed5a5fd0eb29" },
   "vim-codic": { "branch": "master", "commit": "3633599a3128fcc948bd41f63513b3bb178f68b6" },
@@ -43,7 +41,6 @@
   "vim-sayonara": { "branch": "master", "commit": "75c73f3cf3e96f8c09db5291970243699aadc02c" },
   "vim-table-mode": { "branch": "master", "commit": "bb025308a45c67c7c8f0763ba37bc2ee3f534df0" },
   "vim-wombat-scheme": { "branch": "master", "commit": "8bddabafb47dc84870cc20ffe887326883190997" },
-  "vimfiler.vim": { "branch": "master", "commit": "69d5bc6070d5b3ff4e73719d970bae50a71d2c67" },
   "vimproc.vim": { "branch": "master", "commit": "63a4ce0768c7af434ac53d37bdc1e7ff7fd2bece" },
   "vinarise.vim": { "branch": "master", "commit": "84dd647932fbd029310cca31f417c42f56d60547" }
 }

@@ -25,7 +25,6 @@ return {
     end,
   },
   'ryanoasis/vim-devicons',
-  'ujihisa/unite-colorscheme',
   {
     'itchyny/lightline.vim',
     init = function()
@@ -75,37 +74,8 @@ return {
   --------------------------------------------------
   -- 遅延読み込みプラグイン (旧 dein_lazy.toml)
   --------------------------------------------------
-  {
-    'Shougo/unite.vim',
-    cmd = { 'Unite' },
-    config = function()
-      vim.cmd([[
-        call unite#custom#profile('default', 'context', {
-        \ 'start_insert': 1,
-        \ 'direction': 'dynamicbottom',
-        \ })
-        call unite#custom#default_action('directory', 'vimfiler')
-      ]])
-    end,
-  },
-  {
-    'Shougo/vimfiler.vim',
-    cmd = { 'VimFiler', 'VimFilerTab', 'VimFilerBufferDir', 'VimFilerCurrentDir' },
-    config = function()
-      vim.g.vimfiler_as_default_explorer = 1
-      vim.cmd([[
-        call vimfiler#custom#profile('default', 'context', {
-        \ 'auto_cd': 1,
-        \ 'safe': 0,
-        \ 'fnamewidth': 74,
-        \ 'sort_type': 'Time',
-        \ })
-      ]])
-    end,
-  },
-  --------------------------------------------------
+
   -- Fern (ファイルエクスプローラー) & NerdFont設定
-  --------------------------------------------------
   {
     'lambdalisue/fern.vim',
     cmd = { 'Fern' },
