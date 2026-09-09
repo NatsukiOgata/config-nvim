@@ -187,40 +187,6 @@ return {
     end,
   },
 
-  -- ESKK
-  {
-    'vim-skk/eskk.vim',
-    event = 'InsertEnter',
-    config = function()
-      vim.g['eskk#dictionary'] = {
-        path = '~/.vim/dict/SKK-VIM-JISYO.txt',
-        sorted = 0,
-        encoding = 'utf-8',
-      }
-      vim.g['eskk#large_dictionary'] = {
-        path = '~/.vim/dict/SKK-JISYO.L',
-        sorted = 1,
-        encoding = 'euc-jp',
-      }
-      vim.g['eskk#egg_like_newline'] = 1
-
-      vim.cmd([[
-        autocmd User eskk-initialize-pre call s:eskk_initial_pre()
-        function! s:eskk_initial_pre() abort
-          let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-          call t.add_map('(', '（')
-          call t.add_map(')', '）')
-          call t.add_map('~', '～')
-          call t.add_map('zc', '©')
-          call t.add_map('zr', '®')
-          call t.add_map('tm', '™')
-          call t.add_map('z ', ' ')
-          call eskk#register_mode_table('hira', t)
-        endfunction
-      ]])
-    end,
-  },
-
   -- EasyMotion / EasyAlign
   {
     'easymotion/vim-easymotion',
