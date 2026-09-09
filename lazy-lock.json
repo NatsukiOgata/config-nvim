@@ -28,7 +28,6 @@
   "qfixhowm": { "branch": "master", "commit": "14d0a3414f69b3a06ba3616bdd53ca4dbcfc6106" },
   "vim-altr": { "branch": "master", "commit": "fba055cf3b83a1ada5b05d694fbefd024aa93289" },
   "vim-clang-format": { "branch": "master", "commit": "6b791825ff478061ad1c57b21bb1ed5a5fd0eb29" },
-  "vim-codic": { "branch": "master", "commit": "3633599a3128fcc948bd41f63513b3bb178f68b6" },
   "vim-devicons": { "branch": "master", "commit": "71f239af28b7214eebb60d4ea5bd040291fb7e33" },
   "vim-easy-align": { "branch": "master", "commit": "9815a55dbcd817784458df7a18acacc6f82b1241" },
   "vim-easymotion": { "branch": "master", "commit": "b3cfab2a6302b3b39f53d9fd2cd997e1127d7878" },
@@ -37,9 +36,7 @@
   "vim-quickrun": { "branch": "master", "commit": "77b4d6ea9972a206f02c736882c2398c36d2983c" },
   "vim-ripgrep": { "branch": "main", "commit": "937467144bb1a0b60f7d8406bb443a6e1312799f" },
   "vim-rooter": { "branch": "master", "commit": "51402fb77c4d6ae94994e37dc7ca13bec8f4afcc" },
-  "vim-sayonara": { "branch": "master", "commit": "75c73f3cf3e96f8c09db5291970243699aadc02c" },
   "vim-table-mode": { "branch": "master", "commit": "bb025308a45c67c7c8f0763ba37bc2ee3f534df0" },
   "vim-wombat-scheme": { "branch": "master", "commit": "8bddabafb47dc84870cc20ffe887326883190997" },
-  "vimproc.vim": { "branch": "master", "commit": "63a4ce0768c7af434ac53d37bdc1e7ff7fd2bece" },
-  "vinarise.vim": { "branch": "master", "commit": "84dd647932fbd029310cca31f417c42f56d60547" }
+  "vimproc.vim": { "branch": "master", "commit": "63a4ce0768c7af434ac53d37bdc1e7ff7fd2bece" }
 }

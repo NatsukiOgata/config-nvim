@@ -69,7 +69,6 @@ return {
     end,
   },
   'yuttie/comfortable-motion.vim',
-  'Shougo/vinarise.vim',
 
   --------------------------------------------------
   -- 遅延読み込みプラグイン (旧 dein_lazy.toml)
@@ -215,11 +214,9 @@ return {
       vim.cmd('command! -nargs=+ -complete=file Rg :call ripgrep#search(<q-args>)')
     end,
   },
-  { 'mhinz/vim-sayonara', cmd = { 'Sayonara' } },
   { 'tpope/vim-fugitive', event = 'BufReadPost' },
   { 'buggo/gitv', cmd = { 'Gitv' } },
   { 'cohama/agit.vim', cmd = { 'Agit' } },
-  { 'okwrtdsh/vim-codic', cmd = { 'Codic', 'CodicCamel' } },
   {
     'vim-scripts/gtags.vim',
     event = 'BufReadPost',
