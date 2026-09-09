@@ -59,7 +59,6 @@ return {
   },
   'sheerun/vim-wombat-scheme',
   'editorconfig/editorconfig-vim',
-  { 'Shougo/vimproc.vim', build = 'make' },
   'rhysd/neovim-component',
   {
     'jiangmiao/auto-pairs',
@@ -137,37 +136,6 @@ return {
   },
 
   -- Quickrun & Asyncrun
-  {
-    'thinca/vim-quickrun',
-    event = 'BufReadPost',
-    config = function()
-      vim.g.quickrun_config = {
-        _ = {
-          ['outputter/error/success'] = 'buffer',
-          ['outputter/error/error'] = 'quickfix',
-          ['outputter/quickfix/open_cmd'] = 'copen',
-          runner = 'vimproc',
-          ['runner/vimproc/updatetime'] = 60,
-          ['hook/time/enable'] = 1,
-        },
-        cpp = {
-          command = 'g++',
-          cmdopt = '-std=c++14 -Wall',
-          input = '=@0',
-          runner = 'system',
-        },
-        cs = {
-          command = 'mcs',
-          exec = { '%c %o %s:p > /dev/null', 'mono %s:p:r.exe', 'rm %s:p:r.exe' },
-          cmdopt = '-warn:4',
-          ['quickfix/errorformat'] = [=[%f\(%l\,%c\): error CS%n: %m]=],
-        },
-        python = {
-          command = 'python3',
-        },
-      }
-    end,
-  },
   {
     'skywind3000/asyncrun.vim',
     cmd = { 'AsyncRun' },

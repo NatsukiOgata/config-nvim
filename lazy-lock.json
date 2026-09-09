@@ -32,10 +32,8 @@
   "vim-easymotion": { "branch": "master", "commit": "b3cfab2a6302b3b39f53d9fd2cd997e1127d7878" },
   "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
   "vim-operator-user": { "branch": "master", "commit": "c3dfd41c1ed516b4b901c97562e644de62c367aa" },
-  "vim-quickrun": { "branch": "master", "commit": "77b4d6ea9972a206f02c736882c2398c36d2983c" },
   "vim-ripgrep": { "branch": "main", "commit": "937467144bb1a0b60f7d8406bb443a6e1312799f" },
   "vim-rooter": { "branch": "master", "commit": "51402fb77c4d6ae94994e37dc7ca13bec8f4afcc" },
   "vim-table-mode": { "branch": "master", "commit": "bb025308a45c67c7c8f0763ba37bc2ee3f534df0" },
-  "vim-wombat-scheme": { "branch": "master", "commit": "8bddabafb47dc84870cc20ffe887326883190997" },
-  "vimproc.vim": { "branch": "master", "commit": "63a4ce0768c7af434ac53d37bdc1e7ff7fd2bece" }
+  "vim-wombat-scheme": { "branch": "master", "commit": "8bddabafb47dc84870cc20ffe887326883190997" }
 }
