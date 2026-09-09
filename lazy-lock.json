@@ -7,7 +7,6 @@
   "ale": { "branch": "master", "commit": "e1789bc54483d76ac9ddb40b633d1645c8281914" },
   "asyncrun.vim": { "branch": "master", "commit": "98d3c0fdeb983f0ef62fe3a49da440f6d2c045ce" },
   "auto-pairs": { "branch": "master", "commit": "39f06b873a8449af8ff6a3eee716d3da14d63a76" },
-  "coc.nvim": { "branch": "release", "commit": "c2dc39cbf953e4e26651abc52f9b78291929a3c3" },
   "comfortable-motion.vim": { "branch": "master", "commit": "e20aeafb07c6184727b29f7674530150f7ab2036" },
   "copypath.vim": { "branch": "master", "commit": "b7c5e7f6287105856a6d67dd3a0061f1c6f020be" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },

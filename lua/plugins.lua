@@ -256,18 +256,6 @@ return {
       ]])
     end,
   },
-  {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    event = 'BufReadPost',
-    keys = {
-      { ',t', '[translator]', remap = true },
-      { '[translator]j', ':<C-u>CocCommand translator.popup<CR>', silent = true },
-    },
-    init = function()
-      vim.keymap.set('n', '[translator]', ':CocCommand translator.', { noremap = true })
-    end,
-  },
 
   -- Utility
   'kana/vim-operator-user',
