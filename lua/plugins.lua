@@ -260,4 +260,50 @@ return {
   },
   { 'vim-scripts/copypath.vim', cmd = { 'CopyFileName', 'CopyPath' } },
   { 'vim-scripts/BlockDiff', cmd = { 'BlockDiff1', 'BlockDiff2' } },
+
+  -- AI補助プラグイン
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    dependencies = {
+      -- NES機能のためにバックエンドとなるLSPを管理するプラグイン
+      {
+        "copilotlsp-nvim/copilot-lsp",
+        init = function()
+          -- デバウンス時間（ミリ秒）: 編集後にNESの提案を計算するまでの待機時間
+          vim.g.copilot_nes_debounce = 500
+        end,
+      },
+    },
+    config = function()
+      require("copilot").setup({
+        -- 1. 通常のインラインコード補完（ゴーストテキスト形式）
+        suggestion = {
+          enabled = true,
+          auto_trigger = true, -- 入力中に自動で候補を表示
+          debounce = 75,
+          keymap = {
+            accept = "<Tab>",   -- 【Tab】で提案をすべて受け入れる
+            accept_word = "<M-w>", -- 【Alt + w】で1語だけ受け入れる
+            accept_line = "<M-l>", -- 【Alt + l】で1行だけ受け入れる
+            next = "<M-]>",     -- 【Alt + ]】で次の候補へ
+            prev = "<M-[>",     -- 【Alt + [】で前の候補へ
+            dismiss = "<C-]>",  -- 【Ctrl + ]】で提案を閉じる
+          },
+        },
+        panel = { enabled = false }, -- ポップアップパネルは不要なため無効化
+
+        -- 2. Next Edit Suggestion (NES: 次の編集提案) の設定
+        nes = {
+          enabled = true,
+          keymap = {
+            -- 提案がある場合、このキーで「提案を受け入れて該当箇所にジャンプ」します
+            -- 例: <leader>cp (Space + c + p など)
+            accept_and_goto = "<leader>cp", 
+          },
+        },
+      })
+    end,
+  },
 }
