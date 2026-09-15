@@ -261,7 +261,9 @@ return {
   { 'vim-scripts/copypath.vim', cmd = { 'CopyFileName', 'CopyPath' } },
   { 'vim-scripts/BlockDiff', cmd = { 'BlockDiff1', 'BlockDiff2' } },
 
-  -- AI補助プラグイン
+  --------------------------------------------------
+  -- GitHub Copilot (copilot.lua) & NES (Next Edit Suggestion)
+  --------------------------------------------------
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -276,6 +278,12 @@ return {
         end,
       },
     },
+    keys = {
+      -- NES (Next Edit Suggestion) 用のカンマプレフィックスバインド (,a = AI / Assist)
+      { ",aa", function() require("copilot.suggestion").accept_and_goto() end, desc = "AI: Accept and goto NES" },
+      { ",an", function() require("copilot.suggestion").next_edit() end, desc = "AI: Next Edit Suggestion" },
+      { ",ap", function() require("copilot.suggestion").prev_edit() end, desc = "AI: Prev Edit Suggestion" },
+    },
     config = function()
       require("copilot").setup({
         -- 1. 通常のインラインコード補完（ゴーストテキスト形式）
@@ -284,24 +292,44 @@ return {
           auto_trigger = true, -- 入力中に自動で候補を表示
           debounce = 75,
           keymap = {
-            accept = "<Tab>",   -- 【Tab】で提案をすべて受け入れる
-            accept_word = "<M-w>", -- 【Alt + w】で1語だけ受け入れる
-            accept_line = "<M-l>", -- 【Alt + l】で1行だけ受け入れる
-            next = "<M-]>",     -- 【Alt + ]】で次の候補へ
-            prev = "<M-[>",     -- 【Alt + [】で前の候補へ
-            dismiss = "<C-]>",  -- 【Ctrl + ]】で提案を閉じる
+            accept = "<C-y>",      -- Vim標準の補完確定と統一 (インサート移動 <C-l> との衝突回避)
+            accept_word = "<C-f>", -- Forward 1 Word
+            accept_line = "<C-j>", -- Down 1 Line
+            next = "<M-]>",        -- 【Alt + ]】で次の候補へ
+            prev = "<M-[>",        -- 【Alt + [】で前の候補へ
+            dismiss = "<C-e>",     -- Vim標準の補完キャンセルと統一
           },
         },
-        panel = { enabled = false }, -- ポップアップパネルは不要なため無効化
+
+        -- ポップアップパネルの設定
+        panel = {
+          enabled = true,
+          auto_refresh = false, -- 自動更新はオフ（重くならないように）
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            refresh = "gr",
+            open = "<M-CR>", -- Alt + Enter で別ウィンドウに提案一覧を開く
+          },
+          layout = {
+            position = "bottom",
+            ratio = 0.4,
+          },
+        },
 
         -- 2. Next Edit Suggestion (NES: 次の編集提案) の設定
         nes = {
           enabled = true,
           keymap = {
-            -- 提案がある場合、このキーで「提案を受け入れて該当箇所にジャンプ」します
-            -- 例: <leader>cp (Space + c + p など)
-            accept_and_goto = "<leader>cp", 
+            accept_and_goto = ",aa", -- カンマ派生 (,aa) でジャンプ＆適用
           },
+        },
+
+        -- 無効化したいファイルタイプのみを false で指定
+        filetypes = {
+          help = false,
+          gitrebase = false,
+          ["."] = false,
         },
       })
     end,
