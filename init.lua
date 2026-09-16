@@ -31,11 +31,6 @@ vim.o.smartcase = true
 vim.wo.list = true
 vim.wo.listchars = 'tab:>-'
 
-local option_noremap = { noremap = true, silent = true }
-
--- local keymap = vim.keymap
-local keymap = vim.api.nvim_set_keymap
-
 -- diffオプションの設定
 vim.opt.diffopt:append({
   "iwhite",             -- 空白文字（スペースやタブ）の違いを無視
@@ -43,9 +38,18 @@ vim.opt.diffopt:append({
   "linematch:60",       -- 改行・空白位置がずれても類似行を賢くマッチング（Neovim v0.9+）
 })
 
--- インサートモードでカーソル移動
-keymap('i', '<C-l>', '<Right>', option_noremap)
-keymap('i', '<C-h>', '<Left>' , option_noremap)
+local option_noremap = { noremap = true, silent = true }
+
+-- local keymap = vim.keymap
+local keymap = vim.api.nvim_set_keymap
+
+-- <ESC>x2 で検索ハイライトを無効化
+keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
+
+-- Ctrl + q でターミナルを終了
+keymap('t', '<C-q>', '<C-\\><C-n>:bw!<CR>', option_noremap)
+-- ESCでターミナルモードからノーマルモードへ
+keymap('t', '<ESC>', '<C-\\><C-n>', option_noremap)
 
 -- 日付/時刻を展開
 vim.cmd([[
@@ -66,14 +70,6 @@ vim.cmd([[
 autocmd ColorScheme * highlight Emphasis ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
 ]])
-
--- <ESC>x2 で検索ハイライトを無効化
-keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
-
--- Ctrl + q でターミナルを終了
-keymap('t', '<C-q>', '<C-\\><C-n>:bw!<CR>', option_noremap)
--- ESCでターミナルモードからノーマルモードへ
-keymap('t', '<ESC>', '<C-\\><C-n>', option_noremap)
 
 vim.cmd([[
 if has('win32') || has ('win64')
