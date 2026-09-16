@@ -73,31 +73,37 @@ return {
   -- 遅延読み込みプラグイン (旧 dein_lazy.toml)
   --------------------------------------------------
 
-  -- Fern (ファイルエクスプローラー) & NerdFont設定
+  -- Yazi (TUIファイルマネージャー連携)
   {
-    'lambdalisue/fern.vim',
-    cmd = { 'Fern' },
-    dependencies = {
-      'lambdalisue/nerdfont.vim',
-      'lambdalisue/fern-renderer-nerdfont.vim',
-      'lambdalisue/fern-bookmark.vim',
-      'antoinemadec/FixCursorHold.nvim',
-    },
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
     keys = {
-      { ',f', '[fern]', remap = true },
-      -- バッファディレクトリ
-      { '[fern]d', ':<C-u>Fern . -reveal=%<CR>', silent = true },
-      -- カレントディレクトリ
-      { '[fern]c', ':<C-u>Fern .<CR>', silent = true },
-      -- bookmark
-      { ',bj', ':<C-u>Fern bookmark:///<CR>', silent = true },
+      -- ,f でカレントファイルの場所をYaziで開く
+      {
+        ",f",
+        function()
+          require("yazi").yazi()
+        end,
+        desc = "Open yazi at the current file",
+      },
+      -- ,cw でカレントワーキングディレクトリをYaziで開く
+      {
+        ",cw",
+        function()
+          require("yazi").yazi(nil, vim.fn.getcwd())
+        end,
+        desc = "Open yazi in working directory",
+      },
     },
-    init = function()
-      vim.keymap.set('n', '[fern]', ':Fern', { noremap = true })
-      -- Fern 起動前にレンダラーを nerdfont に指定しておく
-      vim.g['fern#renderer'] = 'nerdfont'
-    end,
+    opts = {
+      open_for_directories = false,
+      keymaps = {
+        show_help = "<f1>",
+      },
+    },
   },
+  -- メモ: プレビュー用のfile.exeのパスを環境変数に設定する
+  -- [Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe", "User")
 
   -- fzf 関連
   {
