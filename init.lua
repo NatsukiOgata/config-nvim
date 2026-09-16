@@ -60,6 +60,13 @@ keymap('t', '<C-r>*', function()
   vim.api.nvim_chan_send(vim.b.terminal_job_id, clipboard)
 end, option_noremap)
 
+keymap('c', '<C-r>s', function()
+  local text = vim.fn.getreg('+')
+  -- 改行（\r\n や \n）をスペースに置換
+  local joined = text:gsub('\r?\n', ' ')
+  return joined
+end, { expr = true, noremap = true, silent = true, desc = "Paste clipboard with spaces" })
+
 -- 日付/時刻を展開
 vim.cmd([[
 " 基本形
