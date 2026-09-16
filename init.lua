@@ -38,10 +38,8 @@ vim.opt.diffopt:append({
   "linematch:60",       -- 改行・空白位置がずれても類似行を賢くマッチング（Neovim v0.9+）
 })
 
+local keymap = vim.keymap.set
 local option_noremap = { noremap = true, silent = true }
-
--- local keymap = vim.keymap
-local keymap = vim.api.nvim_set_keymap
 
 -- <ESC>x2 で検索ハイライトを無効化
 keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
@@ -50,6 +48,17 @@ keymap('n', '<ESC><ESC>', ':<C-u>nohlsearch<CR>', option_noremap)
 keymap('t', '<C-q>', '<C-\\><C-n>:bw!<CR>', option_noremap)
 -- ESCでターミナルモードからノーマルモードへ
 keymap('t', '<ESC>', '<C-\\><C-n>', option_noremap)
+
+-- ターミナルモード中に <C-r>+ でクリップボードから貼り付け
+keymap('t', '<C-r>+', function()
+  local clipboard = vim.fn.getreg('+')
+  vim.api.nvim_chan_send(vim.b.terminal_job_id, clipboard)
+end, option_noremap)
+-- <C-r>* も
+keymap('t', '<C-r>*', function()
+  local clipboard = vim.fn.getreg('*')
+  vim.api.nvim_chan_send(vim.b.terminal_job_id, clipboard)
+end, option_noremap)
 
 -- 日付/時刻を展開
 vim.cmd([[
