@@ -321,11 +321,13 @@ return {
         nes = {
           enabled = true,
           keymap = {
-            accept_and_goto = ",aa", -- カンマ派生 (,aa) でジャンプ＆適用
+            accept_and_goto = ",a", -- カンマ派生 (,a) でジャンプ＆適用
+            accept = false,         -- 移動なしの適用は無効化
+            dismiss = "<Esc><Esc>",
           },
         },
 
-        -- 無効化したいファイルタイプのみを false で指定
+        -- 無効化したいファイルタイプを指定
         filetypes = {
           help = false,
           gitrebase = false,
