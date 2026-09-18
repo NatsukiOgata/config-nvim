@@ -65,7 +65,7 @@ keymap('c', '<C-r>s', function()
   -- 改行（\r\n や \n）をスペースに置換
   local joined = text:gsub('\r?\n', ' ')
   return joined
-end, { expr = true, noremap = true, silent = true, desc = "Paste clipboard with spaces" })
+end, { expr = true, noremap = true, silent = false, desc = "Paste clipboard with spaces" })
 
 -- 日付/時刻を展開
 vim.cmd([[
