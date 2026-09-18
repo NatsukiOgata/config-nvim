@@ -73,31 +73,37 @@ return {
   -- 遅延読み込みプラグイン (旧 dein_lazy.toml)
   --------------------------------------------------
 
-  -- Fern (ファイルエクスプローラー) & NerdFont設定
+  -- Yazi (TUIファイルマネージャー連携)
   {
-    'lambdalisue/fern.vim',
-    cmd = { 'Fern' },
-    dependencies = {
-      'lambdalisue/nerdfont.vim',
-      'lambdalisue/fern-renderer-nerdfont.vim',
-      'lambdalisue/fern-bookmark.vim',
-      'antoinemadec/FixCursorHold.nvim',
-    },
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
     keys = {
-      { ',f', '[fern]', remap = true },
-      -- バッファディレクトリ
-      { '[fern]d', ':<C-u>Fern . -reveal=%<CR>', silent = true },
-      -- カレントディレクトリ
-      { '[fern]c', ':<C-u>Fern .<CR>', silent = true },
-      -- bookmark
-      { ',bj', ':<C-u>Fern bookmark:///<CR>', silent = true },
+      -- ,f でカレントファイルの場所をYaziで開く
+      {
+        ",f",
+        function()
+          require("yazi").yazi()
+        end,
+        desc = "Open yazi at the current file",
+      },
+      -- ,cw でカレントワーキングディレクトリをYaziで開く
+      {
+        ",cw",
+        function()
+          require("yazi").yazi(nil, vim.fn.getcwd())
+        end,
+        desc = "Open yazi in working directory",
+      },
     },
-    init = function()
-      vim.keymap.set('n', '[fern]', ':Fern', { noremap = true })
-      -- Fern 起動前にレンダラーを nerdfont に指定しておく
-      vim.g['fern#renderer'] = 'nerdfont'
-    end,
+    opts = {
+      open_for_directories = false,
+      keymaps = {
+        show_help = "<f1>",
+      },
+    },
   },
+  -- メモ: プレビュー用のfile.exeのパスを環境変数に設定する
+  -- [Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe", "User")
 
   -- fzf 関連
   {
@@ -278,12 +284,6 @@ return {
         end,
       },
     },
-    keys = {
-      -- NES (Next Edit Suggestion) 用のカンマプレフィックスバインド (,a = AI / Assist)
-      { ",aa", function() require("copilot.suggestion").accept_and_goto() end, desc = "AI: Accept and goto NES" },
-      { ",an", function() require("copilot.suggestion").next_edit() end, desc = "AI: Next Edit Suggestion" },
-      { ",ap", function() require("copilot.suggestion").prev_edit() end, desc = "AI: Prev Edit Suggestion" },
-    },
     config = function()
       require("copilot").setup({
         -- 1. 通常のインラインコード補完（ゴーストテキスト形式）
@@ -301,31 +301,22 @@ return {
           },
         },
 
-        -- ポップアップパネルの設定
+        -- ポップアップパネルを無効化
         panel = {
-          enabled = true,
-          auto_refresh = false, -- 自動更新はオフ（重くならないように）
-          keymap = {
-            jump_prev = "[[",
-            jump_next = "]]",
-            refresh = "gr",
-            open = "<M-CR>", -- Alt + Enter で別ウィンドウに提案一覧を開く
-          },
-          layout = {
-            position = "bottom",
-            ratio = 0.4,
-          },
+          enabled = false,
         },
 
         -- 2. Next Edit Suggestion (NES: 次の編集提案) の設定
         nes = {
           enabled = true,
           keymap = {
-            accept_and_goto = ",aa", -- カンマ派生 (,aa) でジャンプ＆適用
+            accept_and_goto = ",a", -- カンマ派生 (,a) でジャンプ＆適用
+            accept = false,         -- 移動なしの適用は無効化
+            dismiss = "<Esc><Esc>",
           },
         },
 
-        -- 無効化したいファイルタイプのみを false で指定
+        -- 無効化したいファイルタイプを指定
         filetypes = {
           help = false,
           gitrebase = false,
