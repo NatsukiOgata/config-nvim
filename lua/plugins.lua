@@ -284,12 +284,6 @@ return {
         end,
       },
     },
-    keys = {
-      -- NES (Next Edit Suggestion) 用のカンマプレフィックスバインド (,a = AI / Assist)
-      { ",aa", function() require("copilot.suggestion").accept_and_goto() end, desc = "AI: Accept and goto NES" },
-      { ",an", function() require("copilot.suggestion").next_edit() end, desc = "AI: Next Edit Suggestion" },
-      { ",ap", function() require("copilot.suggestion").prev_edit() end, desc = "AI: Prev Edit Suggestion" },
-    },
     config = function()
       require("copilot").setup({
         -- 1. 通常のインラインコード補完（ゴーストテキスト形式）
