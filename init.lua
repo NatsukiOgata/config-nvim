@@ -60,7 +60,8 @@ keymap('t', '<C-r>*', function()
   vim.api.nvim_chan_send(vim.b.terminal_job_id, clipboard)
 end, option_noremap)
 
-keymap('c', '<C-r>j', function()
+-- クリップボードの改行を指定文字で結合して返す共通関数
+local function get_joined_clipboard()
   -- 連結に使う1文字をユーザーに入力させる
   local ok, char_code = pcall(vim.fn.getchar)
   if not ok or type(char_code) ~= "number" then
@@ -75,9 +76,25 @@ keymap('c', '<C-r>j', function()
 
   local text = vim.fn.getreg('+')
   -- 改行（\r\n や \n）を指定した区切り文字に置換
-  local joined = text:gsub('\r?\n', delimiter)
-  return joined
-end, { expr = true, noremap = true, silent = false, desc = "Paste clipboard joined with typed character" })
+  return text:gsub('\r?\n', delimiter)
+end
+
+-- コマンドラインモード・インサートモードへの割り当て (expr = true)
+keymap({ 'c', 'i' }, '<C-r>j', get_joined_clipboard, {
+  expr = true,
+  noremap = true,
+  silent = false,
+  desc = "Paste clipboard joined with typed character",
+})
+
+-- ターミナルモードへの割り当て (キー送信で挿入)
+keymap('t', '<C-r>j', function()
+  local joined = get_joined_clipboard()
+  if joined ~= "" then
+    -- ターミナルにテキストをそのまま送る
+    vim.api.nvim_chan_send(vim.b.terminal_job_id, joined)
+  end
+end, { noremap = true, silent = false, desc = "Paste clipboard joined with typed character in terminal" })
 
 -- 日付/時刻を展開
 vim.cmd([[
