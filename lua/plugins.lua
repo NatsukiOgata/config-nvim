@@ -301,20 +301,9 @@ return {
           },
         },
 
-        -- ポップアップパネルの設定
+        -- ポップアップパネルを無効化
         panel = {
-          enabled = true,
-          auto_refresh = false, -- 自動更新はオフ（重くならないように）
-          keymap = {
-            jump_prev = "[[",
-            jump_next = "]]",
-            refresh = "gr",
-            open = "<M-CR>", -- Alt + Enter で別ウィンドウに提案一覧を開く
-          },
-          layout = {
-            position = "bottom",
-            ratio = 0.4,
-          },
+          enabled = false,
         },
 
         -- 2. Next Edit Suggestion (NES: 次の編集提案) の設定
