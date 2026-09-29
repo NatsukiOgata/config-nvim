@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 -- 対象にしたい言語のリスト
-local target_ft = { "java", "c", "cpp", "cs", "javascript", "typescript", "rust", "go" }
+local target_ft = { "c", "cpp", "cs", "javascript", "typescript", "java", "go", "rust" }
 
 -- 設定したい共通クエリの中身
 local query_content = [[
