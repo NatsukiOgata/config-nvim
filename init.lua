@@ -110,24 +110,53 @@ noremap! <expr> <C-d>t: strftime('%H:%M:%S')
 noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
 ]])
 
--- ハイライトグループの定義
+-- 否定演算子 (!) 専用のハイライト定義
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
-    vim.api.nvim_set_hl(0, "Emphasis", {
+    -- @attribute.negation というハイライトグループに背景色・文字色を設定
+    vim.api.nvim_set_hl(0, "@attribute.negation", {
       fg = "Black",
       bg = "Yellow",
     })
   end,
 })
 
--- 否定を表す"!"を強調
-vim.api.nvim_create_autocmd({"FileType", "BufEnter"}, {
-  pattern = "*",
-  callback = function()
-    vim.cmd([[syntax match Emphasis /![^ =]/he=e-1]])
-  end,
-})
+-- 対象にしたい言語のリスト
+local target_ft = { "java", "c", "cpp", "javascript", "typescript", "rust", "go" }
+
+-- 設定したい共通クエリの中身
+local query_content = [[
+;;; extends
+
+(unary_expression
+  "!" @attribute.negation)
+
+(unary_expression
+  operator: "!" @attribute.negation)
+]]
+
+-- after/queries/ 以下の各フォルダへ自動配置する処理
+local queries_base = vim.fn.stdpath("config") .. "/after/queries/"
+
+for _, ft in ipairs(target_ft) do
+  local dir = queries_base .. ft
+  local filepath = dir .. "/highlights.scm"
+
+  -- フォルダが存在しない場合は作成
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.fn.mkdir(dir, "p")
+  end
+
+  -- ファイルが存在しない場合のみ作成（既存設定を壊さない）
+  if vim.fn.filereadable(filepath) == 0 then
+    local f = io.open(filepath, "w")
+    if f then
+      f:write(query_content)
+      f:close()
+    end
+  end
+end
 
 vim.cmd([[
 if has('win32') || has ('win64')
