@@ -110,11 +110,24 @@ noremap! <expr> <C-d>t: strftime('%H:%M:%S')
 noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
 ]])
 
+-- ハイライトグループの定義
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "Emphasis", {
+      fg = "Black",
+      bg = "Yellow",
+    })
+  end,
+})
+
 -- 否定を表す"!"を強調
-vim.cmd([[
-autocmd ColorScheme * highlight Emphasis ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
-autocmd Syntax * syntax match Emphasis /![^ =]/he=e-1
-]])
+vim.api.nvim_create_autocmd({"FileType", "BufEnter"}, {
+  pattern = "*",
+  callback = function()
+    vim.cmd([[syntax match Emphasis /![^ =]/he=e-1]])
+  end,
+})
 
 vim.cmd([[
 if has('win32') || has ('win64')
