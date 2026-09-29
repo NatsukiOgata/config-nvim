@@ -96,6 +96,13 @@ keymap('t', '<C-r>j', function()
   end
 end, { noremap = true, silent = false, desc = "Paste clipboard joined with typed character in terminal" })
 
+-- ,cm で :messages の内容をクリップボードにコピーして通知
+keymap("n", ",cm", function()
+  local msgs = vim.fn.execute("messages")
+  vim.fn.setreg("+", msgs)
+  vim.notify("Copied :messages to clipboard!")
+end, { desc = "Copy :messages to clipboard" })
+
 -- 日付/時刻を展開
 vim.cmd([[
 " 基本形
