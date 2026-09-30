@@ -117,18 +117,6 @@ noremap! <expr> <C-d>t: strftime('%H:%M:%S')
 noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
 ]])
 
--- 否定演算子 (!) 専用のハイライト定義
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    -- @attribute.negation というハイライトグループに背景色・文字色を設定
-    vim.api.nvim_set_hl(0, "@attribute.negation", {
-      fg = "Black",
-      bg = "Yellow",
-    })
-  end,
-})
-
 -- 対象にしたい言語のリスト
 local target_ft = { "c", "cpp", "cs", "javascript", "typescript", "java", "go", "rust" }
 

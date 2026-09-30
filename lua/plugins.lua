@@ -60,26 +60,19 @@ return {
     end,
   },
   {
-    "ViViDboarder/wombat.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
+    opts = {},
     config = function()
-      -- テーマの読み込み
-      vim.cmd("colorscheme wombat_ghostty")
+      require("tokyonight").setup({
+        styles = {
+          comments = { italic = false }, -- コメントの斜体をオフ
+          keywords = { italic = false }, -- 予約語の斜体をオフ
+        },
+      })
+      vim.cmd("colorscheme tokyonight-moon")
 
-      -- コメントと文字列の斜体をオフ
-      local groups_to_disable_italics = {
-        "Comment",
-        "String",
-        "@comment",
-        "@string",
-        "@string.documentation",
-      }
-      for _, group in ipairs(groups_to_disable_italics) do
-        vim.api.nvim_set_hl(0, group, { italic = false })
-      end
-
-      -- ! 演算子強調用の独自ハイライト色を定義 (例: 黒文字 + 黄色背景)
       vim.api.nvim_set_hl(0, "@attribute.negation", {
         fg = "#000000",
         bg = "#ffff00",
