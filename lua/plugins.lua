@@ -60,18 +60,23 @@ return {
     end,
   },
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
+    "kartikp10/noctis.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
     priority = 1000,
-    opts = {},
     config = function()
-      require("tokyonight").setup({
-        styles = {
-          comments = { italic = false }, -- コメントの斜体をオフ
-          keywords = { italic = false }, -- 予約語の斜体をオフ
-        },
-      })
-      vim.cmd("colorscheme tokyonight-moon")
+      vim.cmd("colorscheme noctis")
+
+      -- コメントや文字列の斜体をオフにする設定
+      local no_italic_groups = {
+        "Comment",
+        "String",
+        "@comment",
+        "@string",
+        "@string.documentation",
+      }
+      for _, group in ipairs(no_italic_groups) do
+        vim.api.nvim_set_hl(0, group, { italic = false })
+      end
 
       vim.api.nvim_set_hl(0, "@attribute.negation", {
         fg = "#000000",
