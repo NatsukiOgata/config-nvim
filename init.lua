@@ -267,9 +267,6 @@ endfunction
 vim.cmd('nmap ,cd :CdCurrent<CR>')
 vim.cmd('command! -nargs=0 CdCurrent cd %:p:h')
 
--- テーマ
-vim.cmd('colorscheme wombat')
-
 -- GUIモード（nvim-qtなど）で起動している場合のみ実行
 if vim.fn.has('gui_running') == 1 then
 	vim.opt.guifont = "PlemolJP Console NF:h16"

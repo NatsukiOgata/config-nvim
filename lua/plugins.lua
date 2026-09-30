@@ -26,38 +26,66 @@ return {
   },
   'ryanoasis/vim-devicons',
   {
-    'itchyny/lightline.vim',
-    init = function()
-      vim.o.laststatus = 2
-      vim.g.lightline = {
-        colorscheme = 'wombat',
-        active = {
-          left = {
-            { 'mode', 'paste' },
-            { 'gitbranch', 'readonly', 'filename', 'modified', 'relativedir' },
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- アイコン表示用（任意）
+    config = function()
+      -- 相対ディレクトリを取得する Lua 関数
+      local function show_relative_dir()
+        local dir = vim.fn.expand("%:h")
+        return dir ~= "" and dir or "[Empty Dir]"
+      end
+
+      require("lualine").setup({
+        options = {
+          -- 'auto' を指定すると、自動で現在設定されている wombat.nvim の色を正確に抽出して適用します
+          theme = "auto", 
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          globalstatus = false,
+        },
+        sections = {
+          lualine_a = { "mode" },
+          lualine_b = { 
+            "branch", 
+            { "filename", file_status = true, path = 0 } -- 0: ファイル名のみ
           },
+          lualine_c = { 
+            show_relative_dir -- 関数をそのままコンポーネントとして渡せます
+          },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
         },
-        component_function = {
-          gitbranch = 'FugitiveHead',
-          absolutedir = 'ShowAbsoluteDir',
-          relativedir = 'ShowRelativeDir',
-        },
-        separator = { left = "", right = "" },
-        subseparator = { left = "", right = "" },
-      }
-      vim.cmd([[
-        function! ShowAbsoluteDir()
-          let l:dir = expand('%:p:h')
-          return '' != l:dir ? l:dir : '[Empty Dir]'
-        endfunction
-        function! ShowRelativeDir()
-          let l:dir = expand('%:h')
-          return '' != l:dir ? l:dir : '[Empty Dir]'
-        endfunction
-      ]])
+      })
     end,
   },
-  'sheerun/vim-wombat-scheme',
+  {
+    "ViViDboarder/wombat.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
+    priority = 1000,
+    config = function()
+      -- テーマの読み込み
+      vim.cmd("colorscheme wombat_ghostty")
+
+      -- コメントと文字列の斜体をオフ
+      local groups_to_disable_italics = {
+        "Comment",
+        "String",
+        "@comment",
+        "@string",
+        "@string.documentation",
+      }
+      for _, group in ipairs(groups_to_disable_italics) do
+        vim.api.nvim_set_hl(0, group, { italic = false })
+      end
+
+      -- ! 演算子強調用の独自ハイライト色を定義 (例: 黒文字 + 黄色背景)
+      vim.api.nvim_set_hl(0, "@attribute.negation", {
+        fg = "#000000",
+        bg = "#ffff00",
+      })
+    end,
+  },
   'editorconfig/editorconfig-vim',
   'rhysd/neovim-component',
   {
