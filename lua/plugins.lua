@@ -51,13 +51,14 @@ return {
           lualine_c = { 
             show_relative_dir -- 関数をそのままコンポーネントとして渡せます
           },
-          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_x = { "copilot", "encoding", "fileformat", "filetype" },
           lualine_y = { "progress" },
           lualine_z = { "location" },
         },
       })
     end,
   },
+  { 'AndreM222/copilot-lualine' },
   {
     'sainnhe/sonokai',
     lazy = false,
