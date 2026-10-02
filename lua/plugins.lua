@@ -37,8 +37,7 @@ return {
 
       require("lualine").setup({
         options = {
-          -- 'auto' を指定すると、自動で現在設定されている wombat.nvim の色を正確に抽出して適用します
-          theme = "auto", 
+          theme = "sonokai", 
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           globalstatus = false,
@@ -60,23 +59,13 @@ return {
     end,
   },
   {
-    "kartikp10/noctis.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
+    'sainnhe/sonokai',
+    lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme noctis")
-
-      -- コメントや文字列の斜体をオフにする設定
-      local no_italic_groups = {
-        "Comment",
-        "String",
-        "@comment",
-        "@string",
-        "@string.documentation",
-      }
-      for _, group in ipairs(no_italic_groups) do
-        vim.api.nvim_set_hl(0, group, { italic = false })
-      end
+      vim.g.sonokai_disable_italic_comment = 1
+      vim.g.sonokai_enable_italic = 0
+      vim.cmd.colorscheme('sonokai')
 
       vim.api.nvim_set_hl(0, "@attribute.negation", {
         fg = "#000000",
