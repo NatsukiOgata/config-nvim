@@ -93,17 +93,17 @@ return {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     keys = {
-      -- ,f でカレントファイルの場所をYaziで開く
+      -- カレントファイル
       {
-        ",f",
+        ",fd",
         function()
           require("yazi").yazi()
         end,
         desc = "Open yazi at the current file",
       },
-      -- ,cw でカレントワーキングディレクトリをYaziで開く
+      -- ワーキングディレクトリ
       {
-        ",cw",
+        ",fw",
         function()
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,
