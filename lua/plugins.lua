@@ -110,6 +110,12 @@ return {
         end,
         desc = "Open yazi in working directory",
       },
+      -- トグル
+      {
+        ",ft",
+        '<cmd>Yazi toggle<CR>',
+        desc = "Toggle yazi",
+      },
     },
     opts = {
       open_for_directories = false,
