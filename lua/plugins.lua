@@ -24,10 +24,19 @@ return {
       vim.g.MyGrep_GrepFilePattern = '.'
     end,
   },
-  'ryanoasis/vim-devicons',
+  {
+    "echasnovski/mini.icons",
+    lazy = false,
+    opts = {},
+    config = function(_, opts)
+      require("mini.icons").setup(opts)
+      -- これで lualine や diffview が内部で nvim-web-devicons を探しても、
+      -- mini.icons が代わりに超高速で身代わり処理してくれます
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- アイコン表示用（任意）
     config = function()
       -- 相対ディレクトリを取得する Lua 関数
       local function show_relative_dir()
@@ -299,7 +308,6 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = { "DiffviewOpen" },
   },
   {
