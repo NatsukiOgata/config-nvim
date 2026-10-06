@@ -99,42 +99,83 @@ return {
   --------------------------------------------------
 
   -- Yazi (TUIファイルマネージャー連携)
-  {
-    "mikavilpas/yazi.nvim",
-    event = "VeryLazy",
-    keys = {
-      -- カレントファイル
-      {
-        ",fd",
-        function()
-          require("yazi").yazi()
-        end,
-        desc = "Open yazi at the current file",
-      },
-      -- ワーキングディレクトリ
-      {
-        ",fw",
-        function()
-          require("yazi").yazi(nil, vim.fn.getcwd())
-        end,
-        desc = "Open yazi in working directory",
-      },
-      -- トグル
-      {
-        ",ft",
-        '<cmd>Yazi toggle<CR>',
-        desc = "Toggle yazi",
-      },
-    },
-    opts = {
-      open_for_directories = false,
-      keymaps = {
-        show_help = "<f1>",
-      },
-    },
-  },
+  -- {
+  --   "willothy/flatten.nvim",
+  --   config = true,
+  --   priority = 1001, 
+  -- },
+  -- {
+  --   "mikavilpas/yazi.nvim",
+  --   event = "VeryLazy",
+  --   keys = {
+  --     {
+  --       ",fd",
+  --       function()
+  --         vim.fn.setenv("EDITOR", "nvim") -- Yaziにnvimを起動させるトリガー
+  --         require("yazi").yazi()
+  --       end,
+  --       desc = "Open yazi at the current file",
+  --     },
+  --     {
+  --       ",fw",
+  --       function()
+  --         vim.fn.setenv("EDITOR", "nvim")
+  --         require("yazi").yazi(nil, vim.fn.getcwd())
+  --       end,
+  --       desc = "Open yazi in working directory",
+  --     },
+  --     {
+  --       ",ft",
+  --       function()
+  --         vim.fn.setenv("EDITOR", "nvim")
+  --         vim.cmd("Yazi toggle")
+  --       end,
+  --       desc = "Toggle yazi",
+  --     },
+  --   },
+  --   opts = {
+  --     open_for_directories = true,
+  --     keymaps = {
+  --       show_help = "<f1>",
+  --     },
+  --   },
+  --   init = function()
+  --     vim.g.loaded_netrwPlugin = 1
+  --   end,
+  -- },
   -- メモ: プレビュー用のfile.exeのパスを環境変数に設定する
   -- [Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe", "User")
+
+  {
+    'stevearc/oil.nvim',
+    keys = {
+      { ",fd", "<cmd>Oil<CR>", desc = "Open parent directory" },
+    },
+    config = function()
+      require("oil").setup({
+        columns = {
+          "icon",
+        },
+        view_options = {
+          show_hidden = true,
+          sort = {
+            { "type", "asc" },
+            { "mtime", "desc" },
+          },
+          natural_order = true,
+          is_always_hidden = function(name, bufnr)
+            return name == ".." or name == ".git"
+          end,
+        },
+        win_options = {
+          wrap = true,
+        },
+        keymaps = {
+          ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
+        },
+      })
+    end,
+  },
 
   -- fzf 関連
   {
