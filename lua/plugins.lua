@@ -105,54 +105,7 @@ return {
   -- 遅延読み込みプラグイン (旧 dein_lazy.toml)
   --------------------------------------------------
 
-  -- Yazi (TUIファイルマネージャー連携)
-  -- {
-  --   "willothy/flatten.nvim",
-  --   config = true,
-  --   priority = 1001, 
-  -- },
-  -- {
-  --   "mikavilpas/yazi.nvim",
-  --   event = "VeryLazy",
-  --   keys = {
-  --     {
-  --       ",fd",
-  --       function()
-  --         vim.fn.setenv("EDITOR", "nvim") -- Yaziにnvimを起動させるトリガー
-  --         require("yazi").yazi()
-  --       end,
-  --       desc = "Open yazi at the current file",
-  --     },
-  --     {
-  --       ",fw",
-  --       function()
-  --         vim.fn.setenv("EDITOR", "nvim")
-  --         require("yazi").yazi(nil, vim.fn.getcwd())
-  --       end,
-  --       desc = "Open yazi in working directory",
-  --     },
-  --     {
-  --       ",ft",
-  --       function()
-  --         vim.fn.setenv("EDITOR", "nvim")
-  --         vim.cmd("Yazi toggle")
-  --       end,
-  --       desc = "Toggle yazi",
-  --     },
-  --   },
-  --   opts = {
-  --     open_for_directories = true,
-  --     keymaps = {
-  --       show_help = "<f1>",
-  --     },
-  --   },
-  --   init = function()
-  --     vim.g.loaded_netrwPlugin = 1
-  --   end,
-  -- },
-  -- メモ: プレビュー用のfile.exeのパスを環境変数に設定する
-  -- [Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "$env:USERPROFILE\scoop\apps\git\current\usr\bin\file.exe", "User")
-
+  -- ファイルマネージャー
   {
     'stevearc/oil.nvim',
     keys = {
