@@ -107,33 +107,27 @@ return {
 
   -- ファイルマネージャー
   {
-    'stevearc/oil.nvim',
-    keys = {
-      { ",fd", "<cmd>Oil<CR>", desc = "Open parent directory" },
+    'lambdalisue/fern.vim',
+    cmd = { 'Fern' },
+    dependencies = {
+      'lambdalisue/nerdfont.vim',
+      'lambdalisue/fern-renderer-nerdfont.vim',
+      'lambdalisue/fern-bookmark.vim',
+      'antoinemadec/FixCursorHold.nvim',
     },
-    config = function()
-      require("oil").setup({
-        columns = {
-          "icon",
-        },
-        view_options = {
-          show_hidden = true,
-          sort = {
-            { "type", "asc" },
-            { "mtime", "desc" },
-          },
-          natural_order = true,
-          is_always_hidden = function(name, bufnr)
-            return name == ".." or name == ".git"
-          end,
-        },
-        win_options = {
-          wrap = true,
-        },
-        keymaps = {
-          ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
-        },
-      })
+    keys = {
+      { ',f', '[fern]', remap = true },
+      -- バッファディレクトリ
+      { '[fern]d', ':<C-u>Fern . -reveal=%<CR>', silent = true },
+      -- カレントディレクトリ
+      { '[fern]c', ':<C-u>Fern .<CR>', silent = true },
+      -- bookmark
+      { ',bj', ':<C-u>Fern bookmark:///<CR>', silent = true },
+    },
+    init = function()
+      vim.keymap.set('n', '[fern]', ':Fern', { noremap = true })
+      -- Fern 起動前にレンダラーを nerdfont に指定しておく
+      vim.g['fern#renderer'] = 'nerdfont'
     end,
   },
 
