@@ -259,3 +259,19 @@ vim.cmd('command! -nargs=0 CdCurrent cd %:p:h')
 if vim.fn.has('gui_running') == 1 then
 	vim.opt.guifont = "PlemolJP Console NF:h16"
 end
+
+-- プロジェクトのルート（.git などがある場所）に自動で cd する設定
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(ctx)
+    -- 【重要】oil.nvim のバッファ（oil:// で始まるパス）のときは、ルート検索をスキップする
+    if vim.bo[ctx.buf].filetype == "oil" or ctx.file:match("^oil://") then
+      return
+    end
+
+    -- .git や新しめのプロジェクトマーカー（Cargo.toml, package.json等）を探す
+    local root = vim.fs.root(ctx.buf, { ".git", "Cargo.toml", "package.json" })
+    if root then
+      vim.fn.chdir(root)
+    end
+  end,
+})

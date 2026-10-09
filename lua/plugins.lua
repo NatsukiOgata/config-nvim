@@ -3,10 +3,6 @@ return {
   -- UI / 基本プラグイン (旧 dein.toml)
   --------------------------------------------------
   {
-    'airblade/vim-rooter',
-    event = 'BufReadPre',
-  },
-  {
     'fuenor/qfixhowm',
     init = function()
       vim.g.QFix_Height = 6
@@ -43,10 +39,6 @@ return {
     config = function()
       -- 相対ディレクトリを取得する Lua 関数
       local function show_relative_dir()
-        -- Oilのバッファのときは計算をスキップ
-        if vim.bo.filetype == "oil" then
-          return "[Oil]"
-        end
         local dir = vim.fn.expand("%:h")
         return dir ~= "" and dir or "[Empty Dir]"
       end
