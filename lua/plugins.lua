@@ -261,22 +261,22 @@ return {
     end,
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter",
-    tag = "v0.9.2", -- 従来の configs / :TS* コマンドがそのまま使えるバージョンに固定
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { 
-          "c", "cpp", "c_sharp", "javascript", "typescript", "java", "go", "rust", "python", "lua"
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-      })
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   tag = "v0.9.2", -- 従来の configs / :TS* コマンドがそのまま使えるバージョンに固定
+  --   build = ":TSUpdate",
+  --   config = function()
+  --     require("nvim-treesitter.configs").setup({
+  --       ensure_installed = { 
+  --         "c", "cpp", "c_sharp", "javascript", "typescript", "java", "go", "rust", "python", "lua"
+  --       },
+  --       auto_install = true,
+  --       highlight = {
+  --         enable = true,
+  --       },
+  --     })
+  --   end,
+  -- },
 
   -- Utility
   'kana/vim-operator-user',
