@@ -127,6 +127,24 @@ return {
           ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
         },
       })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "oil",
+        callback = function()
+          -- oilバッファの中だけで有効なキーマップ `,ode` を登録する
+          vim.keymap.set("n", ",ode", function()
+            local current_dir = require("oil").get_current_dir()
+            if current_dir then
+              -- Windows用にスラッシュをバックスラッシュ（\）に変換
+              local win_dir = current_dir:gsub("/", "\\")
+              -- エディタをフリーズさせずに、裏でcmd.exe経由でexplorerを起動
+              vim.fn.jobstart('cmd.exe /c start "" "' .. win_dir .. '"', { detach = true })
+            else
+              vim.notify("パスを取得できませんでした", vim.log.levels.WARN)
+            end
+          end, { buffer = true, desc = "Open in OS Explorer" })
+        end,
+      })
     end,
   },
 
