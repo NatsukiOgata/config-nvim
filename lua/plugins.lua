@@ -137,8 +137,8 @@ return {
             if current_dir then
               -- Windows用にスラッシュをバックスラッシュ（\）に変換
               local win_dir = current_dir:gsub("/", "\\")
-              -- エディタをフリーズさせずに、裏でcmd.exe経由でexplorerを起動
-              vim.fn.jobstart('cmd.exe /c start "" "' .. win_dir .. '"', { detach = true })
+              -- エディタをフリーズさせずに、explorerを起動
+              vim.cmd(string.format('silent !start explorer.exe "%s"', win_dir))
             else
               vim.notify("パスを取得できませんでした", vim.log.levels.WARN)
             end

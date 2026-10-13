@@ -163,7 +163,7 @@ if has('win32') || has ('win64')
 	function! OpenDirectoryExplorer(dir)
 		let save_ss = &shellslash
 		set noshellslash
-		execute('!start explorer.exe "' . a:dir . '"')
+		silent execute('!start explorer.exe "' . a:dir . '"')
 		let &shellslash = save_ss
 	endfunction
 
