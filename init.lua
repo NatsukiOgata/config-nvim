@@ -255,11 +255,6 @@ endfunction
 vim.cmd('nmap ,cd :CdCurrent<CR>')
 vim.cmd('command! -nargs=0 CdCurrent cd %:p:h')
 
--- GUIモード（nvim-qtなど）で起動している場合のみ実行
-if vim.fn.has('gui_running') == 1 then
-	vim.opt.guifont = "PlemolJP Console NF:h16"
-end
-
 -- プロジェクトのルート（.git などがある場所）に自動で cd する設定
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function(ctx)
@@ -275,3 +270,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- GUIモード（nvim-qtなど）で起動している場合のみ実行
+if vim.fn.has('gui_running') == 1 then
+	vim.opt.guifont = "PlemolJP Console NF:h16"
+end
