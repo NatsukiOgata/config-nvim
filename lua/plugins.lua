@@ -123,6 +123,7 @@ return {
           wrap = true,
         },
         keymaps = {
+          ["<C-t>"] = { "actions.select_tab", desc = "Open in new tab" },
           ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
         },
       })
