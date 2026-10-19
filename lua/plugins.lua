@@ -175,6 +175,12 @@ return {
             layout = "flex",
           },
         },
+        keymap = {
+          builtin = {
+            ["<c-e>"] = "preview-page-down",
+            ["<c-y>"] = "preview-page-up",
+          },
+        },
         fzf_opts = {
           ["--layout"] = "default",
         },
