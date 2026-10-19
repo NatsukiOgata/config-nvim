@@ -165,6 +165,16 @@ return {
     },
     config = function()
       require("fzf-lua").setup({
+        winopts = {
+          height = 1.00,
+          width = 1.00,
+          row = 0,
+          col = 0,
+          border = "none",
+          preview = {
+            layout = "flex",
+          },
+        },
         files = {
           git_icons = true,
           file_icons = true,
