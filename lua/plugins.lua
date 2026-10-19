@@ -150,37 +150,26 @@ return {
 
   -- fzf 関連
   {
-    'junegunn/fzf',
-    build = './install --bin',
-  },
-  {
-    'junegunn/fzf.vim',
-    dependencies = { 'fzf' },
-    cmd = { 'Files', 'GFiles', 'Snippets', 'Buffers' },
+    "ibhagwan/fzf-lua",
     keys = {
-      -- ファイル一覧(サブディレクトリも対象)
-      { ',fr', ':<C-u>Files<CR>', silent = true },
-      -- ファイル一覧(Git)
-      { ',fg', ':<C-u>GFiles<CR>', silent = true },
-      -- スニペット
-      { ',sn', ':<C-u>Snippets<CR>', silent = true },
+      -- ファイル一覧 (サブディレクトリ対象)
+      { ",fr", "<cmd>FzfLua files<CR>", silent = true },
+      -- ファイル一覧 (Git)
+      { ",fg", "<cmd>FzfLua git_files<CR>", silent = true },
+      -- スニペット (nvim-cmp / LuaSnip 等と連携)
+      { ",sn", "<cmd>FzfLua snippets<CR>", silent = true },
       -- バッファ一覧
-      { ',bl', ':<C-u>Buffers<CR>', silent = true },
+      { ",bl", "<cmd>FzfLua buffers<CR>", silent = true },
+      -- 最近使用したファイル一覧 (fzf-mru の代替)
+      { ",fm", "<cmd>FzfLua oldfiles<CR>", silent = true },
     },
     config = function()
-      vim.g.fzf_layout = { window = '-tabnew' }
-    end,
-  },
-  {
-    'pbogut/fzf-mru.vim',
-    dependencies = { 'fzf' },
-    cmd = { 'FZFMru' },
-    keys = {
-      -- 最近使用したファイル一覧
-      { ',fm', ':<C-u>FZFMru<CR>', silent = true },
-    },
-    config = function()
-      vim.g.fzf_mru_relative = 0
+      require("fzf-lua").setup({
+        files = {
+          git_icons = true,
+          file_icons = true,
+        },
+      })
     end,
   },
 
