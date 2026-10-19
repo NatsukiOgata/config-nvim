@@ -175,6 +175,9 @@ return {
             layout = "flex",
           },
         },
+        fzf_opts = {
+          ["--layout"] = "default",
+        },
         files = {
           git_icons = true,
           file_icons = true,
