@@ -82,7 +82,6 @@ return {
       })
     end,
   },
-  'editorconfig/editorconfig-vim',
   'rhysd/neovim-component',
   {
     'jiangmiao/auto-pairs',
