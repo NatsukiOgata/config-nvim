@@ -45,18 +45,18 @@ return {
 
       require("lualine").setup({
         options = {
-          theme = "sonokai", 
+          theme = "sonokai",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           globalstatus = false,
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { 
-            "branch", 
+          lualine_b = {
+            "branch",
             { "filename", file_status = true, path = 0 } -- 0: ファイル名のみ
           },
-          lualine_c = { 
+          lualine_c = {
             show_relative_dir -- 関数をそのままコンポーネントとして渡せます
           },
           lualine_x = { "copilot", "encoding", "fileformat", "filetype" },
@@ -295,7 +295,7 @@ return {
   --   build = ":TSUpdate",
   --   config = function()
   --     require("nvim-treesitter.configs").setup({
-  --       ensure_installed = { 
+  --       ensure_installed = {
   --         "c", "cpp", "c_sharp", "javascript", "typescript", "java", "go", "rust", "python", "lua"
   --       },
   --       auto_install = true,

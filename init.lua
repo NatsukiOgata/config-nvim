@@ -155,31 +155,31 @@ end
 
 vim.cmd([[
 if has('win32') || has ('win64')
-	" 関連付け実行
-	nmap ,exe :!start cmd.exe /C start <cfile><CR>
+  " 関連付け実行
+  nmap ,exe :!start cmd.exe /C start <cfile><CR>
 
-	" カレントディレクトリをエクスプローラーで開く
-	nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
-	function! OpenDirectoryExplorer(dir)
-		let save_ss = &shellslash
-		set noshellslash
-		silent execute('!start explorer.exe "' . a:dir . '"')
-		let &shellslash = save_ss
-	endfunction
+  " カレントディレクトリをエクスプローラーで開く
+  nmap ,ode :call OpenDirectoryExplorer("%:p:h")<CR>
+  function! OpenDirectoryExplorer(dir)
+    let save_ss = &shellslash
+    set noshellslash
+    silent execute('!start explorer.exe "' . a:dir . '"')
+    let &shellslash = save_ss
+  endfunction
 
-	" 全角解除
-	autocmd InsertLeave * :call DisableIME()
-	function! DisableIME() abort
-		call system('zenhan.exe 0')
-	endfunction
+  " 全角解除
+  autocmd InsertLeave * :call DisableIME()
+  function! DisableIME() abort
+    call system('zenhan.exe 0')
+  endfunction
 else
-	" Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
-	if system('uname -a | grep -i microsoft') != ''
-		augroup myYank
-			autocmd!
-			autocmd TextYankPost * :call system('clip.exe', @")
-		augroup END
-	endif
+  " Windows Subsystem for Linux で、ヤンクでクリップボードにコピー
+  if system('uname -a | grep -i microsoft') != ''
+    augroup myYank
+      autocmd!
+      autocmd TextYankPost * :call system('clip.exe', @")
+    augroup END
+  endif
 endif
 ]])
 
@@ -229,12 +229,12 @@ command! Shell :-tabnew | term
 vim.cmd([[
 command! -nargs=? Jq call _Jq(<f-args>)
 function! _Jq(...)
-	if 0 == a:0
-		let l:arg = "."
-	else
-		let l:arg = a:1
-	endif
-	execute "%!jq " . l:arg
+  if 0 == a:0
+    let l:arg = "."
+  else
+    let l:arg = a:1
+  endif
+  execute "%!jq " . l:arg
 endfunction
 ]])
 
@@ -242,12 +242,12 @@ endfunction
 vim.cmd([[
 command! -nargs=? Xl call _XmlLint(<f-args>)
 function! _XmlLint(...)
-	if 0 == a:0
-		let l:arg = "--format --noblanks -"
-	else
-		let l:arg = a:1
-	endif
-	execute "%!xmllint " . l:arg
+  if 0 == a:0
+    let l:arg = "--format --noblanks -"
+  else
+    let l:arg = a:1
+  endif
+  execute "%!xmllint " . l:arg
 endfunction
 ]])
 
@@ -273,5 +273,5 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- GUIモード（nvim-qtなど）で起動している場合のみ実行
 if vim.fn.has('gui_running') == 1 then
-	vim.opt.guifont = "PlemolJP Console NF:h16"
+  vim.opt.guifont = "PlemolJP Console NF:h16"
 end
