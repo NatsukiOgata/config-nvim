@@ -3,6 +3,17 @@ return {
   -- UI / 基本プラグイン (旧 dein.toml)
   --------------------------------------------------
   {
+    "keaising/im-select.nvim",
+    event = "InsertEnter",
+    config = function()
+      require("im_select").setup({
+        default_im_select = "0",
+        default_command = "zenhan.exe",
+        set_default_events = { "InsertLeave" },
+      })
+    end,
+  },
+  {
     'fuenor/qfixhowm',
     init = function()
       vim.g.QFix_Height = 6
