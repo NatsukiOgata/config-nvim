@@ -183,77 +183,81 @@ else
 endif
 ]])
 
--- 差分表示を解除してカレントのみにする
-vim.cmd([[
-nmap ,doo :DiffOffOnly<CR>
-command! DiffOffOnly :diffoff | only
-]])
+-- 差分表示を解除してカレントバッファのみにする
+vim.api.nvim_create_user_command("DiffOffOnly", "diffoff | only", { desc = "Turn off diff and keep current window" })
+vim.keymap.set("n", ",doo", "<cmd>DiffOffOnly<CR>", { silent = true })
 
-vim.cmd([[
-nmap ,todq :ToDoubleQuote<CR>
-command! ToDoubleQuote :s/'/\"/g | nohlsearch
+-- シングルクォートをダブルクォートに変換
+vim.api.nvim_create_user_command("ToDoubleQuote", function()
+  vim.cmd("s/'/\"/g")
+  vim.cmd("nohlsearch")
+end, { desc = "Convert single quotes to double quotes" })
+vim.keymap.set("n", ",todq", "<cmd>ToDoubleQuote<CR>", { silent = true })
 
-nmap ,tosq :ToSingleQuote<CR>
-command! ToSingleQuote :s/\"/'/g | nohlsearch
+-- ダブルクォートをシングルクォートに変換
+vim.api.nvim_create_user_command("ToSingleQuote", function()
+  vim.cmd('s/"/\'/g')
+  vim.cmd("nohlsearch")
+end, { desc = "Convert double quotes to single quotes" })
+vim.keymap.set("n", ",tosq", "<cmd>ToSingleQuote<CR>", { silent = true })
 
-nmap ,tosl :ToSlash<CR>
-command! ToSlash :s/\\/\//g | nohlsearch
+-- バックスラッシュをスラッシュに変換
+vim.api.nvim_create_user_command("ToSlash", function()
+  vim.cmd([[s/\\/\//g]])
+  vim.cmd("nohlsearch")
+end, { desc = "Convert backslashes to slashes" })
+vim.keymap.set("n", ",tosl", "<cmd>ToSlash<CR>", { silent = true })
 
-nmap ,tobs :ToBackSlash<CR>
-command! ToBackSlash :s/\//\\/g | nohlsearch
+-- スラッシュをバックスラッシュに変換
+vim.api.nvim_create_user_command("ToBackSlash", function()
+  vim.cmd([[s/\//\\/g]])
+  vim.cmd("nohlsearch")
+end, { desc = "Convert slashes to backslashes" })
+vim.keymap.set("n", ",tobs", "<cmd>ToBackSlash<CR>", { silent = true })
 
-command! ToBin :%!xxd
-command! ToTxt :%!xxd -r
+-- バイナリダンプ表示 (xxd)
+vim.api.nvim_create_user_command("ToBin", "%!xxd", { desc = "Convert buffer to hex dump" })
+vim.api.nvim_create_user_command("ToTxt", "%!xxd -r", { desc = "Restore buffer from hex dump" })
 
-" メアド加工
-nmap ,ms :SplitMailAddress<CR>
-command! SplitMailAddress s/; */\r/g | nohlsearch
+-- メールアドレス加工
+vim.api.nvim_create_user_command("SplitMailAddress", function()
+  vim.cmd([[s/; */\r/g]])
+  vim.cmd("nohlsearch")
+end, { desc = "Split mail address list by semicolon" })
+vim.keymap.set("n", ",ms", "<cmd>SplitMailAddress<CR>", { silent = true })
 
-vmap ,mj :JoinMailAddress<CR>
-command! -range JoinMailAddress <line1>,<line2>s/\n/; /g | nohlsearch
-]])
+vim.api.nvim_create_user_command("JoinMailAddress", function(opts)
+  vim.cmd(string.format("%d,%ds/\\n/; /g", opts.line1, opts.line2))
+  vim.cmd("nohlsearch")
+end, { range = true, desc = "Join mail address list with semicolon" })
+vim.keymap.set("v", ",mj", ":JoinMailAddress<CR>", { silent = true })
 
--- Shell(PowerShell)をインサートモードで起動
-vim.cmd([[
-nmap ,sh :PowerShell<CR>i
-command! PowerShell :-tabnew | term powershell
-]])
+-- PowerShell を新しいタブで開く
+vim.api.nvim_create_user_command("PowerShell", "-tabnew | term powershell", { desc = "Open PowerShell in new tab" })
+vim.keymap.set("n", ",sh", "<cmd>PowerShell<CR>i", { silent = true })
 
--- Shell(cmd)をインサートモードで起動
-vim.cmd([[
-nmap ,cmd :Shell<CR>i
-command! Shell :-tabnew | term
-]])
+-- Cmd (Shell) を新しいタブで開く
+vim.api.nvim_create_user_command("Shell", "-tabnew | term", { desc = "Open CMD in new tab" })
+vim.keymap.set("n", ",cmd", "<cmd>Shell<CR>i", { silent = true })
 
--- JSON を整形
-vim.cmd([[
-command! -nargs=? Jq call _Jq(<f-args>)
-function! _Jq(...)
-  if 0 == a:0
-    let l:arg = "."
-  else
-    let l:arg = a:1
-  endif
-  execute "%!jq " . l:arg
-endfunction
-]])
+-- jq による JSON 整形
+vim.api.nvim_create_user_command("Jq", function(opts)
+  local arg = (opts.args ~= "") and opts.args or "."
+  vim.cmd("%!jq " .. arg)
+end, { nargs = "?", desc = "Format JSON using jq" })
 
--- XML を整形
-vim.cmd([[
-command! -nargs=? Xl call _XmlLint(<f-args>)
-function! _XmlLint(...)
-  if 0 == a:0
-    let l:arg = "--format --noblanks -"
-  else
-    let l:arg = a:1
-  endif
-  execute "%!xmllint " . l:arg
-endfunction
-]])
+-- xmllint による XML 整形
+vim.api.nvim_create_user_command("XmlLint", function(opts)
+  local arg = (opts.args ~= "") and opts.args or "--format --noblanks -"
+  vim.cmd("%!xmllint " .. arg)
+end, { nargs = "?", desc = "Format XML using xmllint" })
+vim.api.nvim_create_user_command("Xl", function(opts)
+  vim.cmd("XmlLint " .. opts.args)
+end, { nargs = "?", desc = "Alias for XmlLint" })
 
--- 編集中のファイルのディレクトリに移動する
-vim.cmd('nmap ,cd :CdCurrent<CR>')
-vim.cmd('command! -nargs=0 CdCurrent cd %:p:h')
+-- 編集中のファイルのディレクトリに移動
+vim.api.nvim_create_user_command("CdCurrent", "cd %:p:h", { desc = "Change directory to current file" })
+vim.keymap.set("n", ",cd", "<cmd>CdCurrent<CR>", { silent = true })
 
 -- プロジェクトのルート（.git などがある場所）に自動で cd する設定
 vim.api.nvim_create_autocmd("BufEnter", {
