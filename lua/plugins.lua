@@ -93,7 +93,6 @@ return {
       })
     end,
   },
-  'rhysd/neovim-component',
   {
     'jiangmiao/auto-pairs',
     init = function()
