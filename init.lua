@@ -12,6 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- 環境固有のローカル設定(lua/local.lua)を読み込む
+pcall(require, "local")
+
 -- プラグインの読み込み (lua/plugins.lua を読み込む)
 require("lazy").setup("plugins")
 
