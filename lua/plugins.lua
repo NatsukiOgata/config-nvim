@@ -166,6 +166,8 @@ return {
       { ",fr", "<cmd>FzfLua files<CR>", silent = true },
       -- ファイル一覧 (Git)
       { ",fg", "<cmd>FzfLua git_files<CR>", silent = true },
+      -- リアルタイム検索
+      { ",rg", "<cmd>FzfLua live_grep<CR>", silent = true },
       -- スニペット (nvim-cmp / LuaSnip 等と連携)
       { ",sn", "<cmd>FzfLua snippets<CR>", silent = true },
       -- バッファ一覧
