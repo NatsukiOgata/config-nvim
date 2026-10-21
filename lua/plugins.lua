@@ -258,46 +258,6 @@ return {
   },
   { 'tpope/vim-fugitive', event = 'BufReadPost' },
   { 'buggo/gitv', cmd = { 'Gitv' } },
-  { 'cohama/agit.vim', cmd = { 'Agit' } },
-  {
-    'vim-scripts/gtags.vim',
-    event = 'BufReadPost',
-    keys = {
-      -- cscope_maps.vim like
-      -- Show definetion of function cursor word on quickfix
-      { '<C-\\>s', ":<C-u>exe('Gtags '.expand('<cword>'))<CR>", mode = 'n' },
-      -- Show reference of cursor word on quickfix
-      { '<C-\\>c', ":<C-u>exe('Gtags -r '.expand('<cword>'))<CR>", mode = 'n' },
-      -- Show search on quickfix
-      { '<C-\\>e', ':<C-u>Gtags -g ', mode = 'n' },
-    },
-    config = function()
-      vim.g.Gtags_Auto_Map = 0
-      vim.g.Gtags_OpenQuickfixWindow = 1
-    end,
-  },
-
-  -- ALE / CoC
-  {
-    'w0rp/ale',
-    ft = { 'javascript', 'php' },
-    config = function()
-      -- 保存時のみ実行する
-      vim.g.ale_lint_on_text_changed = 0
-      -- 表示に関する設定
-      vim.g.ale_sign_column_always = 1
-      vim.g.ale_sign_error = "\u{f06a}"
-      vim.g.ale_sign_warning = "\u{f071}"
-      vim.g.ale_echo_msg_format = '[%linter%]%code: %%s'
-      vim.cmd([[
-        highlight link ALEErrorSign Tag
-        highlight link ALEWarningSign StorageClass
-        " Ctrl + kで次の指摘へ、Ctrl + jで前の指摘へ移動
-        nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-        nmap <silent> <C-j> <Plug>(ale_next_wrap)
-      ]])
-    end,
-  },
 
   -- {
   --   "nvim-treesitter/nvim-treesitter",
