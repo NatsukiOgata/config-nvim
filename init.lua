@@ -117,6 +117,56 @@ noremap! <expr> <C-d>t: strftime('%H:%M:%S')
 noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
 ]])
 
+--------------------------------------------------
+-- 否定演算子 (!) のハイライト
+--------------------------------------------------
+local ns_id = vim.api.nvim_create_namespace("negation_highlight")
+
+local function apply_negation_extmarks()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  -- 特殊なバッファ（ターミナルや Oil など）では実行しない
+  if not vim.api.nvim_buf_is_valid(bufnr) or vim.bo[bufnr].buftype ~= "" then
+    return
+  end
+
+  -- 既存のマークをクリア
+  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+
+  -- ハイライト定義 (黒文字 / 黄色背景)
+  vim.api.nvim_set_hl(0, "EmphasisNegationExt", {
+    fg = "#000000",
+    bg = "#FFFF00",
+    bold = true,
+    default = false,
+  })
+
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  for line_idx, line in ipairs(lines) do
+    local col = 1
+    while true do
+      -- ! の直後に '=' や ' ' が来ない位置を検索
+      local s, e = string.find(line, "![^ ==]", col)
+      if not s then break end
+
+      -- ! の 1 文字分に対して最優先 (priority = 200) でハイライトを上乗せ
+      vim.api.nvim_buf_set_extmark(bufnr, ns_id, line_idx - 1, s - 1, {
+        end_col = s,
+        hl_group = "EmphasisNegationExt",
+        priority = 200, -- LSPや標準ハイライトより高い優先度
+      })
+      col = s + 1
+    end
+  end
+end
+
+-- 自動適用フック
+local group = vim.api.nvim_create_augroup("UserEmphasisExtmarks", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" }, {
+  group = group,
+  callback = apply_negation_extmarks,
+})
+
 vim.cmd([[
 if has('win32') || has ('win64')
   " 関連付け実行
