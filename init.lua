@@ -117,42 +117,6 @@ noremap! <expr> <C-d>t: strftime('%H:%M:%S')
 noremap! <expr> <C-d>dt: strftime('%b/%d %H:%M')
 ]])
 
--- 対象にしたい言語のリスト
-local target_ft = { "c", "cpp", "cs", "javascript", "typescript", "java", "go", "rust" }
-
--- 設定したい共通クエリの中身
-local query_content = [[
-;;; extends
-
-(unary_expression
-  "!" @attribute.negation)
-
-(unary_expression
-  operator: "!" @attribute.negation)
-]]
-
--- after/queries/ 以下の各フォルダへ自動配置する処理
-local queries_base = vim.fn.stdpath("config") .. "/after/queries/"
-
-for _, ft in ipairs(target_ft) do
-  local dir = queries_base .. ft
-  local filepath = dir .. "/highlights.scm"
-
-  -- フォルダが存在しない場合は作成
-  if vim.fn.isdirectory(dir) == 0 then
-    vim.fn.mkdir(dir, "p")
-  end
-
-  -- ファイルが存在しない場合のみ作成（既存設定を壊さない）
-  if vim.fn.filereadable(filepath) == 0 then
-    local f = io.open(filepath, "w")
-    if f then
-      f:write(query_content)
-      f:close()
-    end
-  end
-end
-
 vim.cmd([[
 if has('win32') || has ('win64')
   " 関連付け実行
