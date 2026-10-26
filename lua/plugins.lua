@@ -135,6 +135,27 @@ return {
         keymaps = {
           ["<C-t>"] = { "actions.select_tab", desc = "Open in new tab" },
           ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
+          ["dif"] = {
+            desc = "Diff selected file (right) with original file (left)",
+            callback = function()
+              local oil = require("oil")
+              local entry = oil.get_cursor_entry()
+              if not entry or entry.type ~= "file" then
+                vim.notify("ファイルを選択してください", vim.log.levels.WARN)
+                return
+              end
+
+              -- 選んだファイルBのフルパスを取得
+              local dir = oil.get_current_dir()
+              local target_file = dir .. entry.name
+
+              -- 1. Oil画面を「ファイルA（元のファイル）」に戻す（これが左側になる）
+              vim.cmd("edit #")
+
+              -- 2. 右側（botright）に分割してファイルBを開き、diffモードを開始する
+              vim.cmd("botright vert diffsplit " .. vim.fn.fnameescape(target_file))
+            end,
+          },
         },
       })
 
@@ -300,7 +321,7 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen" },
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   },
   {
     "ZSaberLv0/ZFVimDirDiff",
