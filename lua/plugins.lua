@@ -1,3 +1,5 @@
+local diff_source_path = nil
+
 return {
   --------------------------------------------------
   -- UI / 基本プラグイン (旧 dein.toml)
@@ -134,26 +136,66 @@ return {
         },
         keymaps = {
           ["<C-t>"] = { "actions.select_tab", desc = "Open in new tab" },
-          ["Y"] = { "actions.copy_entry_path", desc = "Copy full path" },
-          ["dif"] = {
-            desc = "Diff selected file (right) with original file (left)",
+          ["Y"] = {
+            desc = "Copy full path and set as diff source",
             callback = function()
               local oil = require("oil")
               local entry = oil.get_cursor_entry()
-              if not entry or entry.type ~= "file" then
-                vim.notify("ファイルを選択してください", vim.log.levels.WARN)
+              if not entry then return end
+
+              local dir = oil.get_current_dir()
+              local full_path = dir .. entry.name
+
+              -- クリップボードにコピー（actions.copy_entry_path と同等の挙動）
+              vim.fn.setreg("+", full_path)
+              vim.fn.setreg('"', full_path)
+
+              -- diff の比較元（A）として一時保存
+              diff_source_path = full_path
+              vim.notify("Diff comparison source set: " .. entry.name, vim.log.levels.INFO)
+            end,
+          },
+
+          -- 事前に Y で記録したファイル/フォルダと比較する
+          ["dif"] = {
+            desc = "Diff cursor entry (B) with saved source (A)",
+            callback = function()
+              if not diff_source_path then
+                vim.notify("最初に 'Y' で比較元（A）を選択してください", vim.log.levels.WARN)
                 return
               end
 
-              -- 選んだファイルBのフルパスを取得
+              local oil = require("oil")
+              local entry = oil.get_cursor_entry()
+              if not entry then return end
+
               local dir = oil.get_current_dir()
-              local target_file = dir .. entry.name
+              local target_path = dir .. entry.name
 
-              -- 1. Oil画面を「ファイルA（元のファイル）」に戻す（これが左側になる）
-              vim.cmd("edit #")
+              local source_is_dir = vim.fn.isdirectory(diff_source_path) == 1
+              local target_is_dir = vim.fn.isdirectory(target_path) == 1
 
-              -- 2. 右側（botright）に分割してファイルBを開き、diffモードを開始する
-              vim.cmd("botright vert diffsplit " .. vim.fn.fnameescape(target_file))
+              -- A と B が両方「ディレクトリ」の場合 (ZFDirDiff を使用)
+              if source_is_dir and target_is_dir then
+                local cmd = string.format("ZFDirDiff %s %s",
+                  vim.fn.fnameescape(diff_source_path),
+                  vim.fn.fnameescape(target_path)
+                )
+                vim.cmd(cmd)
+
+              -- A と B が両方「ファイル」の場合 (通常の diffsplit)
+              elseif not source_is_dir and not target_is_dir then
+                -- 左側にファイルA を開く
+                vim.cmd("edit " .. vim.fn.fnameescape(diff_source_path))
+                -- 右側にファイルB を開いて diff
+                vim.cmd("botright vert diffsplit " .. vim.fn.fnameescape(target_path))
+
+              else
+                vim.notify("ファイルとディレクトリを比較することはできません", vim.log.levels.ERROR)
+              end
+
+              -- 比較完了後に一時変数をリセット（連動ミス防止）
+              diff_source_path = nil
             end,
           },
         },
