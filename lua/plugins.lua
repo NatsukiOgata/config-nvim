@@ -136,27 +136,37 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "fern",
         callback = function()
-          vim.keymap.set("n", ",to", function()
-            -- Fern バッファが現在指しているディレクトリのパスを取得
-            -- （b:fern#statusなどの内部変数や、現在開いているバッファのパスを利用）
+          -- 共通のパス取得ロジック（現在の Fern バッファが指しているディレクトリ）
+          local function get_fern_dir()
             local success, current_path = pcall(function()
               return vim.b.fern.this.url
             end)
-
             local target_dir = nil
             if success and current_path then
-              -- file:/// パスなどの場合はデコード、通常パスならそのまま
               target_dir = vim.fn.substitute(current_path, "^file:///", "", "")
             end
-
-            -- 取得できなければカレントディレクトリをフォールバックに使う
             if not target_dir or target_dir == "" or vim.fn.isdirectory(target_dir) == 0 then
               target_dir = vim.fn.getcwd()
             end
+            return target_dir
+          end
 
-            -- 現在のウィンドウを閉じて、同じディレクトリを Oil で開く
+          -- 1. Fern から Oil へ遷移 (,to)
+          vim.keymap.set("n", ",to", function()
+            local target_dir = get_fern_dir()
             require("oil").open(target_dir)
           end, { buffer = true, desc = "Switch from Fern to Oil" })
+
+          -- 2. Fern から OSのエクスプローラーを開く (,ode)
+          vim.keymap.set("n", ",ode", function()
+            local target_dir = get_fern_dir()
+            if target_dir then
+              local win_dir = target_dir:gsub("/", "\\")
+              vim.cmd(string.format('silent !start explorer.exe "%s"', win_dir))
+            else
+              vim.notify("パスを取得できませんでした", vim.log.levels.WARN)
+            end
+          end, { buffer = true, desc = "Open in OS Explorer from Fern" })
         end,
       })
     end,
