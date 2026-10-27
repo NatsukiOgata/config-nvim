@@ -110,10 +110,59 @@ return {
 
   -- ファイルマネージャー
   {
-    'stevearc/oil.nvim',
-    keys = {
-      { ",fd", "<cmd>Oil<CR>", desc = "Open parent directory" },
+    'lambdalisue/fern.vim',
+    cmd = { 'Fern' },
+    dependencies = {
+      'lambdalisue/nerdfont.vim',
+      'lambdalisue/fern-renderer-nerdfont.vim',
+      'lambdalisue/fern-bookmark.vim',
+      'antoinemadec/FixCursorHold.nvim',
     },
+    keys = {
+      { ',f', '[fern]', remap = true },
+      -- バッファディレクトリ
+      { '[fern]d', ':<C-u>Fern . -reveal=%<CR>', silent = true },
+      -- カレントディレクトリ
+      { '[fern]c', ':<C-u>Fern .<CR>', silent = true },
+      -- bookmark
+      { ',bj', ':<C-u>Fern bookmark:///<CR>', silent = true },
+    },
+    init = function()
+      vim.keymap.set('n', '[fern]', ':Fern', { noremap = true })
+      vim.g['fern#renderer'] = 'nerdfont'
+    end,
+    config = function()
+      -- Fern 画面から Oil へ遷移 (,to)
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "fern",
+        callback = function()
+          vim.keymap.set("n", ",to", function()
+            -- Fern バッファが現在指しているディレクトリのパスを取得
+            -- （b:fern#statusなどの内部変数や、現在開いているバッファのパスを利用）
+            local success, current_path = pcall(function()
+              return vim.b.fern.this.url
+            end)
+
+            local target_dir = nil
+            if success and current_path then
+              -- file:/// パスなどの場合はデコード、通常パスならそのまま
+              target_dir = vim.fn.substitute(current_path, "^file:///", "", "")
+            end
+
+            -- 取得できなければカレントディレクトリをフォールバックに使う
+            if not target_dir or target_dir == "" or vim.fn.isdirectory(target_dir) == 0 then
+              target_dir = vim.fn.getcwd()
+            end
+
+            -- 現在のウィンドウを閉じて、同じディレクトリを Oil で開く
+            require("oil").open(target_dir)
+          end, { buffer = true, desc = "Switch from Fern to Oil" })
+        end,
+      })
+    end,
+  },
+  {
+    'stevearc/oil.nvim',
     config = function()
       require("oil").setup({
         columns = {
@@ -146,17 +195,14 @@ return {
               local dir = oil.get_current_dir()
               local full_path = dir .. entry.name
 
-              -- クリップボードにコピー（actions.copy_entry_path と同等の挙動）
               vim.fn.setreg("+", full_path)
               vim.fn.setreg('"', full_path)
 
-              -- diff の比較元（A）として一時保存
               diff_source_path = full_path
               vim.notify("Diff comparison source set: " .. entry.name, vim.log.levels.INFO)
             end,
           },
 
-          -- 事前に Y で記録したファイル/フォルダと比較する
           ["dif"] = {
             desc = "Diff cursor entry (B) with saved source (A)",
             callback = function()
@@ -175,47 +221,50 @@ return {
               local source_is_dir = vim.fn.isdirectory(diff_source_path) == 1
               local target_is_dir = vim.fn.isdirectory(target_path) == 1
 
-              -- A と B が両方「ディレクトリ」の場合 (ZFDirDiff を使用)
               if source_is_dir and target_is_dir then
                 local cmd = string.format("ZFDirDiff %s %s",
                   vim.fn.fnameescape(diff_source_path),
                   vim.fn.fnameescape(target_path)
                 )
                 vim.cmd(cmd)
-
-              -- A と B が両方「ファイル」の場合 (通常の diffsplit)
               elseif not source_is_dir and not target_is_dir then
-                -- 左側にファイルA を開く
                 vim.cmd("edit " .. vim.fn.fnameescape(diff_source_path))
-                -- 右側にファイルB を開いて diff
                 vim.cmd("botright vert diffsplit " .. vim.fn.fnameescape(target_path))
-
               else
                 vim.notify("ファイルとディレクトリを比較することはできません", vim.log.levels.ERROR)
               end
 
-              -- 比較完了後に一時変数をリセット（連動ミス防止）
               diff_source_path = nil
             end,
           },
         },
       })
 
+      -- Oil バッファ専用のローカルキーマップ
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "oil",
         callback = function()
-          -- oilバッファの中だけで有効なキーマップ `,ode` を登録する
+          -- 1. OSのエクスプローラーで開く
           vim.keymap.set("n", ",ode", function()
             local current_dir = require("oil").get_current_dir()
             if current_dir then
-              -- Windows用にスラッシュをバックスラッシュ（\）に変換
               local win_dir = current_dir:gsub("/", "\\")
-              -- エディタをフリーズさせずに、explorerを起動
               vim.cmd(string.format('silent !start explorer.exe "%s"', win_dir))
             else
               vim.notify("パスを取得できませんでした", vim.log.levels.WARN)
             end
           end, { buffer = true, desc = "Open in OS Explorer" })
+
+          -- 2. Oil から Fern に切り替える (,tf)
+          vim.keymap.set("n", ",tf", function()
+            local current_dir = require("oil").get_current_dir()
+            if current_dir then
+              -- 確実にディレクトリとして Fern を起動
+              vim.cmd("Fern " .. vim.fn.fnameescape(current_dir))
+            else
+              vim.notify("パスを取得できませんでした", vim.log.levels.WARN)
+            end
+          end, { buffer = true, desc = "Switch from Oil to Fern" })
         end,
       })
     end,
