@@ -263,6 +263,24 @@ return {
           git_icons = true,
           file_icons = true,
         },
+        oldfiles = {
+          file_ignore_patterns = {
+            -- 開発・バージョン管理
+            "node_modules",
+            "%.git/",
+            -- システム・隠しファイル
+            "%.DS_Store",
+            "Thumbs.db",
+            -- 個人用メモ
+            "howm",
+            -- ビルド成果物・キャッシュ
+            "dist/",
+            "build/",
+            "target/",
+            "vendor/",
+            "__pycache__/",
+          },
+        },
       })
     end,
   },
