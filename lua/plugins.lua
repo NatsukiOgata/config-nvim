@@ -239,6 +239,13 @@ return {
       { ",fm", "<cmd>FzfLua oldfiles<CR>", silent = true },
     },
     config = function()
+      local ignore_patterns = { ".git" }
+      if vim.g.howm_dir then
+        -- string.gsub の複数の戻り値をカッコで囲んで 1 つの値（文字列）に絞る
+        local clean_path = (vim.g.howm_dir:gsub("\\", "/"))
+        table.insert(ignore_patterns, clean_path)
+      end
+
       require("fzf-lua").setup({
         winopts = {
           height = 1.00,
@@ -262,6 +269,9 @@ return {
         files = {
           git_icons = true,
           file_icons = true,
+        },
+        oldfiles = {
+          file_ignore_patterns = ignore_patterns,
         },
       })
     end,
