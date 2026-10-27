@@ -117,6 +117,7 @@ return {
       'lambdalisue/fern-renderer-nerdfont.vim',
       'lambdalisue/fern-bookmark.vim',
       'antoinemadec/FixCursorHold.nvim',
+      'natukin1978/vim-fern-comparator-ftime',
     },
     keys = {
       { ',f', '[fern]', remap = true },
@@ -130,6 +131,7 @@ return {
     init = function()
       vim.keymap.set('n', '[fern]', ':Fern', { noremap = true })
       vim.g['fern#renderer'] = 'nerdfont'
+      vim.g['fern#comparator'] = 'ftime'
     end,
     config = function()
       -- Fern 画面から Oil へ遷移 (,to)
