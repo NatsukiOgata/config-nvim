@@ -239,12 +239,6 @@ return {
       { ",fm", "<cmd>FzfLua oldfiles<CR>", silent = true },
     },
     config = function()
-      local ignore_patterns = { ".git" }
-      local howm_path = nil
-      if vim.g.howm_dir then
-        howm_path = (vim.g.howm_dir:gsub("\\", "/")):lower() -- 比較用に小文字化＆スラッシュ統一
-      end
-
       require("fzf-lua").setup({
         winopts = {
           height = 1.00,
@@ -270,18 +264,11 @@ return {
           file_icons = true,
         },
         oldfiles = {
-          -- oldfiles の結果を1つずつチェックして howm_dir が含まれていたら除外する
-          cwd_only = false,
-          -- プロバイダの出力結果をフィルタリングする処理をフック
-          fn_transform = function(selected)
-            if not howm_path then return selected end
-            -- パスをスラッシュ統一＆小文字化して howm_path が含まれるかチェック
-            local normalized = selected:gsub("\\", "/"):lower()
-            if normalized:find(howm_path, 1, true) then
-              return nil -- nilを返すとリストから除外される
-            end
-            return selected
-          end,
+          file_ignore_patterns = {
+            "node_modules",
+            ".git",
+            "howm",
+          },
         },
       })
     end,
