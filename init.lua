@@ -270,16 +270,52 @@ end, { nargs = "?", desc = "Alias for XmlLint" })
 vim.api.nvim_create_user_command("CdCurrent", "cd %:p:h", { desc = "Change directory to current file" })
 vim.keymap.set("n", ",cd", "<cmd>CdCurrent<CR>", { silent = true })
 
+-- 指定したパスから親へ向かって、マーカー（ファイル・フォルダ）を持つディレクトリを自前で探す汎用関数
+local function find_project_root(startpath, markers)
+  local current = vim.fs.normalize(startpath)
+
+  while current and current ~= "" do
+    for _, marker in ipairs(markers) do
+      -- 各階層にマーカーが存在するかチェック
+      local target = current .. "/" .. marker
+      if vim.uv.fs_stat(target) then
+        return current
+      end
+    end
+
+    -- 親ディレクトリへ移動
+    local parent = vim.fs.dirname(current)
+    if parent == current then
+      break -- ルートディレクトリに到達したら終了
+    end
+    current = parent
+  end
+
+  return nil
+end
+
 -- プロジェクトのルート（.git などがある場所）に自動で cd する設定
-vim.api.nvim_create_autocmd("BufEnter", {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost" }, {
   callback = function(ctx)
-    -- oil.nvim のバッファのときは、ルート検索をスキップする
-    if vim.bo[ctx.buf].filetype == "oil" or ctx.file:match("^oil://") then
+    local ft = vim.bo[ctx.buf].filetype
+    if ft == "oil" or ft == "fern" then
       return
     end
 
+    local file = vim.api.nvim_buf_get_name(ctx.buf)
+    if file == "" or vim.bo[ctx.buf].buftype ~= "" then
+      return
+    end
+
+    local startpath = vim.fs.dirname(file)
+    if not startpath then return end
+
     -- プロジェクトマーカーを探す
-    local root = vim.fs.root(ctx.buf, { ".git", ".svn", ".vscode", "Cargo.toml", "package.json" })
+    local markers = { ".git", ".svn", ".vscode", "Cargo.toml", "package.json" }
+
+    -- 自前の堅牢な関数でルートを特定
+    local root = find_project_root(startpath, markers)
+
     if root then
       vim.fn.chdir(root)
     end
