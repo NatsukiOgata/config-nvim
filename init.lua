@@ -41,6 +41,10 @@ vim.opt.diffopt:append({
   "linematch:60",       -- 改行・空白位置がずれても類似行を賢くマッチング（Neovim v0.9+）
 })
 
+-- Windows でのパス区切りをスラッシュに統一
+vim.opt.shellslash = true
+vim.g.fern_disable_startup_warnings = 1
+
 local keymap = vim.keymap.set
 local option_noremap = { noremap = true, silent = true }
 
