@@ -111,7 +111,7 @@ return {
   -- ファイルマネージャー
   {
     'lambdalisue/fern.vim',
-    lazy = false,
+    cmd = { 'Fern' },
     dependencies = {
       'lambdalisue/nerdfont.vim',
       'lambdalisue/fern-renderer-nerdfont.vim',
