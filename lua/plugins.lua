@@ -326,6 +326,7 @@ return {
           file_icons = true,
         },
         oldfiles = {
+          include_current_session = true,
           file_ignore_patterns = {
             -- 開発・バージョン管理
             "node_modules",
